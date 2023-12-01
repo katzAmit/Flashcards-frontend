@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import Album from "./album";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Album />, document.getElementById("root"));
