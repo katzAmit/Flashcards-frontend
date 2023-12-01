@@ -35,6 +35,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
+const options = ['names', 'italy'];
 
 export default function Album() {
   return (
@@ -92,6 +93,8 @@ export default function Album() {
               contents, the creator, etc. Make it short and sweet, but not too
               short so folks don&apos;t simply skip over it entirely.
             </Typography> */}
+
+            
             <Stack
               sx={{ pt: 4 }}
               direction="row"
@@ -99,10 +102,20 @@ export default function Album() {
               justifyContent="center"
             >
               <select style={{ height: "50px", fontSize: "16px" }}>
+              <option value="">Choose category</option>
+              {options.map((option) => (
+                <option value={option}>
+                  {option}
+                </option>
+  ))}
+
+              </select>
+              
+              {/* <select style={{ height: "50px", fontSize: "16px" }}>
                 <option value="">Choose category</option>
                 <option value="names">Names</option>
                 <option value="italy">Italy</option>
-              </select>
+              </select> */}
               {/* <Button variant="contained">Main call to action</Button>
               <Button variant="outlined">Secondary action</Button> */}
             </Stack>
