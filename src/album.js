@@ -1,35 +1,18 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Button from "@mui/material/Button";
+import {
+  AppBar,Button,Card,CardActions,CardContent,CssBaseline,Grid,Stack,Box,Toolbar,
+  Typography,Container,Link,createTheme,ThemeProvider,} from "@mui/material";
 import StyleIcon from "@mui/icons-material/Style";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Footer from  "./components/Footer.jsx";
+import UpperBar from "./components/UpperBar.jsx";
+import SideBar from "./components/SideBar.jsx";
+import MainHeader from "./components/MainHeader.jsx";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
+
+
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -39,31 +22,12 @@ const options = ['names', 'italy'];
 
 export default function Album() {
   return (
+    // 31-55
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar style={{ position: "relative" }}>
-          <StyleIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Flashcards
-          </Typography>
-          <div style={{ position: "absolute", right: 20 }}>
-            <button
-              style={{ background: "none", border: "none", cursor: "pointer" }}
-            >
-              <NoteAddIcon sx={{ fontSize: 40, color: "white" }} />
-            </button>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <div class="sidebar">
-        <a class="active" href="#My Flashcards">
-          Home
-        </a>
-        <a href="#Quiz">Quiz</a>
-        <a href="#Marathon">Marathon</a>
-        <a href="#Statistics">Statistics</a>
-      </div>
+      <UpperBar />
+      <SideBar />
+    
       <main>
         {/* Hero unit */}
         <Box
@@ -74,15 +38,9 @@ export default function Album() {
           }}
         >
           <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              My Flashcards
-            </Typography>
+      
+            <MainHeader />
+            
             {/* <Typography
               variant="h5"
               align="center"
@@ -175,7 +133,7 @@ export default function Album() {
         >
           Something here to give the footer a purpose!
         </Typography>
-        <Copyright />
+        <Footer />
       </Box>
       {/* End footer */}
     </ThemeProvider>
