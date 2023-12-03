@@ -23,4 +23,12 @@ const cards = [
     q: `amit`,
     a: `bulbul`,
   },
+  {
+    id: 5,
+    c: "Italy",
+    q: "Niv",
+    a: "Gilboa the king of the north",
+  },
 ];
+
+export default cards;

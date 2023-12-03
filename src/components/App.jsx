@@ -1,5 +1,7 @@
 import logoImage from "../LOGO-DOR.jpg";
 
+// CURRENTLY UNNECCESSARY - NOT USED
+
 function App() {
   return (
     <div>
