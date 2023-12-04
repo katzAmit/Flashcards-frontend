@@ -29,6 +29,12 @@ const cards = [
     q: "Niv",
     a: "Gilboa the king of the north",
   },
+  {
+    id: 6,
+    c: "Name",
+    q: "Rostem",
+    a: "the daughter of Tami",
+  },
 ];
 
 export default cards;

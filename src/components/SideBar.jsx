@@ -1,16 +1,35 @@
 import * as React from "react";
-
-function SideBar(){
-    return(
-        <div class="sidebar">
-        <a class="active" href="#My Flashcards">
-          Home
-        </a>
-        <a href="#Quiz">Quiz</a>
-        <a href="#Marathon">Marathon</a>
-        <a href="#Statistics">Statistics</a>
-      </div>
-    );
+import "./SideBar.css";
+function SideBar() {
+  return (
+    <div class="sidebar">
+      <ul style={{ listStyle: "none" }}>
+        <li class="option">
+          <button
+            class="btn btn-option btn-home"
+            style={{ backgroundColor: "#3b82f6" }}
+          >
+            Home
+          </button>
+        </li>
+        <li class="option">
+          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
+            Quiz
+          </button>
+        </li>
+        <li class="option">
+          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
+            Statistics
+          </button>
+        </li>
+        <li class="option">
+          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
+            Marathon
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
 }
 
 export default SideBar;
