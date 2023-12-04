@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Paper } from "@mui/material";
 import GeneralCard from "./GeneralCard";
 import initialCardsData from "../data.js";
 
@@ -26,7 +26,6 @@ function CardsLayout() {
       <Grid container spacing={4}>
         {cards.map((card, index) => (
           <Grid item key={card} xs={12} sm={6} md={4}>
-            {/* GeneralCard uses Card to describe every card's fancunallity */}
             <GeneralCard id={card.id} question={card.q} answer={card.a} />
           </Grid>
         ))}

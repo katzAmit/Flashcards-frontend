@@ -1,43 +1,22 @@
+// GeneralCard.jsx
 import * as React from "react";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import Typography from "@mui/material/Typography";
+import "./GeneralCard.css";
 
 function GeneralCard(props) {
+  const { isFlipped } = props;
+
   return (
-    <Card
-      sx={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "20px",
-      }}
-    >
-      {/* <CardMedia
-                    component="div"
-                    sx={{
-                      // 16:9
-                      pt: "56.25%",
-                    }}
-                    image="https://source.unsplash.com/random?wallpapers"
-                  /> */}
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h5" component="h2">
+    <div className={`card ${isFlipped ? "flipped" : ""}`}>
+      <div className="card__face card__face--front">
+        <Typography gutterBottom variant="h3" component="h1">
           {props.question}
         </Typography>
-        <Typography>{props.answer}</Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">
-          <NoteAltIcon />
-        </Button>
-      </CardActions>
-    </Card>
+      </div>
+      <div className="card__face card__face--back">
+        <Typography variant="h3">{props.answer}</Typography>
+      </div>
+    </div>
   );
 }
 
