@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Album from "./album";
+import SignInPage from "./LoginPage/components/App";
+import Homepage from "./Homepage/album";
 
-ReactDOM.render(<Album />, document.getElementById("root"));
+ReactDOM.render(<SignInPage />, document.getElementById("root"));
+
+// change to Homepage or SignInPage

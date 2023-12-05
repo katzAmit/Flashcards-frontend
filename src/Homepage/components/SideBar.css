@@ -1,0 +1,51 @@
+.source:link,
+.source:visited {
+  color: #a8a29e;
+  text-decoration: none;
+  margin-left: 12px;
+  transition: 0.3s;
+}
+
+.source:hover,
+.source:active {
+  background-color: #f99417;
+  /* color: #f99417; */
+}
+
+.btn {
+  border: none;
+  height: 50px;
+  width: 250px;
+  font-family: "Coiny", sans-serif;
+  line-height: 1;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding: 16px 0 13px;
+  background-image: linear-gradient(135deg, #3b82f6, #e0dada, #3b82f6, #e0dada);
+  color: inherit;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-right: 12px; /* Add margin between buttons */
+  margin-bottom: 5px;
+}
+
+.btn:hover {
+  transform: scale(110%) rotate(-2deg);
+  background-color: #f99417;
+}
+
+.btn-large {
+  font-size: 20px;
+  padding: 20px 32px 17px;
+}
+
+.btn-home {
+  margin-top: 12px;
+}
+
+.btn-option {
+  width: 100%;
+  background-image: none;
+  background-color: #f99417;
+}

@@ -1,11 +1,12 @@
 import logoImage from "../LOGO-DOR.jpg";
 
+// CURRENTLY UNNECCESSARY - NOT USED
+
 function App() {
   return (
     <div>
       <header>
-        <img src={logoImage} height="50px" width="50px" alt="Dor logo" />
-        <h1>Dor's Homepage</h1>
+        <h1>Flashcards</h1>
         <button>Add a card</button>
       </header>
 
@@ -38,17 +39,6 @@ function App() {
             </li>
           </ul>
         </aside>
-
-        <section>
-          <ul>
-            <li className="card">
-              <p>card1</p>
-            </li>
-            <li className="card">
-              <p>card2</p>
-            </li>
-          </ul>
-        </section>
       </main>
     </div>
   );

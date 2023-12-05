@@ -1,21 +1,18 @@
 import * as React from "react";
 import {
-  AppBar,Button,Card,CardActions,CardContent,CssBaseline,Grid,Stack,Box,Toolbar,
-  Typography,Container,Link,createTheme,ThemeProvider,} from "@mui/material";
-import StyleIcon from "@mui/icons-material/Style";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import Footer from  "./components/Footer.jsx";
+  CssBaseline,
+  Stack,
+  Box,
+  Container,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
+import Footer from "./components/Footer.jsx";
 import UpperBar from "./components/UpperBar.jsx";
 import SideBar from "./components/SideBar.jsx";
 import MainHeader from "./components/MainHeader.jsx";
 import CategorySelector from "./components/CategorySelector.jsx";
-import GeneralCard from "./components/GeneralCard.jsx";
 import CardsLayout from "./components/CardsLayout.jsx";
-
-
-
-
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -27,7 +24,7 @@ export default function Album() {
       <CssBaseline />
       <UpperBar />
       <SideBar />
-    
+
       <main>
         {/* Hero unit */}
         <Box
@@ -35,10 +32,10 @@ export default function Album() {
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
+            backgroundColor: "#5d3891",
           }}
         >
           <Container maxWidth="sm">
-      
             <MainHeader />
 
             {/* <Typography
@@ -52,17 +49,14 @@ export default function Album() {
               short so folks don&apos;t simply skip over it entirely.
             </Typography> */}
 
-            
             <Stack
               sx={{ pt: 4 }}
               direction="row"
               spacing={2}
               justifyContent="center"
             >
+              <CategorySelector />
 
-            <CategorySelector />
-              
-              
               {/* <select style={{ height: "50px", fontSize: "16px" }}>
                 <option value="">Choose category</option>
                 <option value="names">Names</option>
@@ -75,12 +69,11 @@ export default function Album() {
         </Box>
 
         <CardsLayout />
-
       </main>
       {/* Footer */}
-      
-        <Footer />
-      
+
+      <Footer />
+
       {/* End footer */}
     </ThemeProvider>
   );
