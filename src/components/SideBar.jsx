@@ -5,27 +5,16 @@ function SideBar() {
     <div class="sidebar">
       <ul style={{ listStyle: "none" }}>
         <li class="option">
-          <button
-            class="btn btn-option btn-home"
-            style={{ backgroundColor: "#3b82f6" }}
-          >
-            Home
-          </button>
+          <button class="btn btn-option btn-home">Home</button>
         </li>
         <li class="option">
-          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
-            Quiz
-          </button>
+          <button class="btn btn-option">Quiz</button>
         </li>
         <li class="option">
-          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
-            Statistics
-          </button>
+          <button class="btn btn-option">Statistics</button>
         </li>
         <li class="option">
-          <button class="btn btn-option" style={{ backgroundColor: "#3b82f6" }}>
-            Marathon
-          </button>
+          <button class="btn btn-option">Marathon</button>
         </li>
       </ul>
     </div>

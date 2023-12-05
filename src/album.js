@@ -45,6 +45,7 @@ export default function Album() {
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
+            backgroundColor: "#5d3891",
           }}
         >
           <Container maxWidth="sm">

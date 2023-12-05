@@ -8,7 +8,8 @@
 
 .source:hover,
 .source:active {
-  color: #3b82f6;
+  background-color: #f99417;
+  /* color: #f99417; */
 }
 
 .btn {
@@ -31,6 +32,7 @@
 
 .btn:hover {
   transform: scale(110%) rotate(-2deg);
+  background-color: #f99417;
 }
 
 .btn-large {
@@ -40,10 +42,10 @@
 
 .btn-home {
   margin-top: 12px;
-  width: 100%;
 }
 
 .btn-option {
   width: 100%;
   background-image: none;
+  background-color: #f99417;
 }
