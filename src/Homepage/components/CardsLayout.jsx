@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Container, Paper } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 import GeneralCard from "./GeneralCard";
 import initialCardsData from "../data.js";
 

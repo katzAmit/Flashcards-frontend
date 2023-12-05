@@ -1,30 +1,17 @@
 import * as React from "react";
 import {
-  AppBar,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
   CssBaseline,
-  Grid,
   Stack,
   Box,
-  Toolbar,
-  Typography,
   Container,
-  Link,
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import StyleIcon from "@mui/icons-material/Style";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import Footer from "./components/Footer.jsx";
 import UpperBar from "./components/UpperBar.jsx";
 import SideBar from "./components/SideBar.jsx";
 import MainHeader from "./components/MainHeader.jsx";
 import CategorySelector from "./components/CategorySelector.jsx";
-import GeneralCard from "./components/GeneralCard.jsx";
 import CardsLayout from "./components/CardsLayout.jsx";
 
 // TODO remove, this demo shouldn't need to reset the theme.
