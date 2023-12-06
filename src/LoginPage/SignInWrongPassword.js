@@ -37,7 +37,7 @@ const defaultTheme = createTheme();
 
 
 
-export default function SignIn() {
+export default function SignInWrongPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,8 +50,8 @@ export default function SignIn() {
     axios.post("https://reqres.in/api/login", userData).then((response) => {
       console.log(response.status, response.data.token);
       navigate('/homePage');
-    })
-    .catch((error)=> navigate('SignInWrongPassword'));
+    });
+    //.catch((error)=> );
   };
 
   const navigate = useNavigate();
@@ -96,6 +96,10 @@ const handleSignupClick = () => {
             <Typography component="h1" variant="h5" >
               Sign in
             </Typography>
+
+            <Box style={{border: '2px solid red', borderRadius: '10px',
+            width: '200px', height: '50px', padding: '10px', color: 'red',
+            display: 'flex',justifyContent: 'center'}}> incorrect password</Box>
 
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
