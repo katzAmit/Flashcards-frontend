@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UpperBar from './components/UpperBar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 //import express from express;
 
 
@@ -34,24 +35,31 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
-
+let wrongPassword = false;
 
 
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    //console.log("katzalachhhhh");
-    const userData = {
-      email: data.get('email'),
-      password: data.get('password'),
-    };
+  const data = new FormData(event.currentTarget);
+  const userData = {
+    username: data.get('email'),
+    password: data.get('password'),
+  };
 
-    axios.post("https://reqres.in/api/login", userData).then((response) => {
+  
+  
+
+    axios.post("http://localhost:4000/login", userData).then((response) => {
       console.log(response.status, response.data.token);
       navigate('/homePage');
     })
-    .catch((error)=> navigate('SignInWrongPassword'));
+    //.catch((error)=> navigate('SignInWrongPassword'));
+    .catch((error)=> {
+      wrongPassword = true;
+      navigate('/');
+    }
+    );
   };
 
   const navigate = useNavigate();
@@ -96,6 +104,19 @@ const handleSignupClick = () => {
             <Typography component="h1" variant="h5" >
               Sign in
             </Typography>
+
+            <div>
+            {wrongPassword? (
+              <Box style={{border: '2px solid red', borderRadius: '10px',
+              width: '200px', height: '50px', padding: '10px', color: 'red',
+              display: 'flex',justifyContent: 'center'}}> 
+              <ErrorOutlineIcon />   incorrect password</Box> 
+              ): null
+            }
+
+            </div>
+            
+            
 
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField

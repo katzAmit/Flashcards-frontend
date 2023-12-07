@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import UpperBar from '../LoginPage/components/UpperBar';
 
 function Copyright(props) {
   return (
@@ -26,24 +30,63 @@ function Copyright(props) {
   );
 }
 
+
+
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
+
+let incorrectMail = false;
+let weakPassword = false;
+let usedMail = false;
+
+
+function MailIncorrectness(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return !emailRegex.test(email);
+}
+
+function PasswordIncorrectness(password) {
+  return false;
+}
+
 export default function SignUp() {
+
+  function CheckValidation(userData) {
+    (MailIncorrectness(userData.get('email')))? incorrectMail = true :
+    (PasswordIncorrectness(userData.get('password')))? weakPassword = true :
+    axios.post("http://localhost:4000/register" ,userData).then((response) => {
+      navigate('/')}).catch((error) =>
+      {usedMail = true;
+      navigate('/signup');})
+  }
+
+  const handleSignInClick= ()=>{
+    navigate('/');
+  }
   const handleSubmit = (event) => {
+
+    incorrectMail = false;
+    weakPassword = false;
+    usedMail = false;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const dataToSend = {username: data.get('email'), password: data.get('password'),
+    fName: data.get('firstName'), lName: data.get('lastName')};
+    CheckValidation(dataToSend);
+
+    navigate('/signup');
   };
+
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <UpperBar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
         <Box
           sx={{
             marginTop: 8,
@@ -52,16 +95,16 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "#6352B1" }}>
             <LockOutlinedIcon />
-          </Avatar>
+          </Avatar >
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
+              <Grid item xs={12} sm={6} >
+                <TextField 
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -69,6 +112,8 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  sx={{ '& fieldset': { borderColor: '#6352B1' } }}
+            
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -79,6 +124,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  sx={{ '& fieldset': { borderColor: '#6352B1' } }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +135,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  sx={{ '& fieldset': { borderColor: '#6352B1' } }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,28 +147,43 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  sx={{ '& fieldset': { borderColor: '#6352B1' } }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+             
             </Grid>
+
+            <div>
+            {
+              (!incorrectMail && !weakPassword && !usedMail)? null :
+              <Box style={{border: '2px solid red', borderRadius: '10px', marginTop:'20px',
+              width: 'fullWidth', height: '50px', padding: '10px', color: 'red',
+              display: 'flex',justifyContent: 'center'}}> 
+              <ErrorOutlineIcon />  {incorrectMail? <p>invalid email address</p>:
+              weakPassword? <p>your password is too weak</p>:
+              <p>the email address is already taken</p>}</Box> 
+            }
+            </div>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: "#6352B1" }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+              <button onClick={handleSignInClick} style={{
+                  color: '#6352B1',
+                  background: 'none',
+                  border: 'none',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                }}>
+                 Already have an account? Sign in
+                  </button>
               </Grid>
             </Grid>
           </Box>
