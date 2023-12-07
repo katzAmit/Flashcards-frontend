@@ -54,8 +54,8 @@ function PasswordIncorrectness(password) {
 export default function SignUp() {
 
   function CheckValidation(userData) {
-    (MailIncorrectness(userData.get('email')))? incorrectMail = true :
-    (PasswordIncorrectness(userData.get('password')))? weakPassword = true :
+    (MailIncorrectness(userData['username']))? incorrectMail = true :
+    (PasswordIncorrectness(userData['password']))? weakPassword = true :
     axios.post("http://localhost:4000/register" ,userData).then((response) => {
       navigate('/')}).catch((error) =>
       {usedMail = true;

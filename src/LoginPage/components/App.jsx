@@ -1,10 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from "../SignIn";
 import SignUp from "../../signUpPage/SignUp";
 import Album from "../../Homepage/album";
-//import SignInWrongPassword from "../SignInWrongPassword";
 
 export default function App() {
   
