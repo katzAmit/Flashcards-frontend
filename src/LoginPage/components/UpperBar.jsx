@@ -4,7 +4,7 @@ import StyleIcon from "@mui/icons-material/Style";
 
 function UpperBar() {
   return (
-    <AppBar position="relative">
+    <AppBar position="relative" style={{backgroundColor: "#6352B1", height: "65px"}}>
       <Toolbar style={{ position: "relative" }}>
         <StyleIcon sx={{ mr: 2 }} />
         <Typography variant="h6" color="inherit" noWrap>
