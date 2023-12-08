@@ -1,47 +1,25 @@
-import logoImage from "../LOGO-DOR.jpg";
+import * as React from "react";
+import {
+  CssBaseline,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
+import Footer from "./Footer.jsx";
+import AppBar from "./AppBar.jsx";
+import CardsLayout from "./CardsLayout.jsx";
 
-// CURRENTLY UNNECCESSARY - NOT USED
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
 
-function App() {
+export default function Homepage() {
   return (
-    <div>
-      <header>
-        <h1>Flashcards</h1>
-        <button>Add a card</button>
-      </header>
-
-      <form className="card-form">
-        <input type="text" placeholder="Q" />
-        <input type="text" placeholder="A" />
-        <span className="remainLetters">100</span>
-        <select>
-          <option value="">Choose category</option>
-          <option value="names">Names</option>
-          <option value="italy">Italy</option>
-        </select>
-        <button>Add</button>
-      </form>
-
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <AppBar />
       <main>
-        <aside>
-          <ul>
-            <li>
-              <button>All</button>
-            </li>
-            <li>
-              <button>Quiz</button>
-            </li>
-            <li>
-              <button>Statistics</button>
-            </li>
-            <li>
-              <button>Marathon</button>
-            </li>
-          </ul>
-        </aside>
+        <CardsLayout />
       </main>
-    </div>
+      <Footer /> 
+    </ThemeProvider>
   );
 }
-
-export default App;

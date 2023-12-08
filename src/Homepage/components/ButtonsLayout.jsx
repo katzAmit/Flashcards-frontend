@@ -14,9 +14,6 @@ function ButtonsGroup() {
         <Edit />
       </IconButton>
       <IconButton style={iconButtonStyle}>
-        <ContentCopy />
-      </IconButton>
-      <IconButton style={iconButtonStyle}>
         <Delete />
       </IconButton>
     </ButtonGroup>
