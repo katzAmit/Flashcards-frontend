@@ -4,9 +4,9 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import Footer from "./Footer.jsx";
-import AppBar from "./AppBar.jsx";
-import CardsLayout from "./CardsLayout.jsx";
+import Footer from "./Footer";
+import AppBar from "../../../components/Navbar";
+import CardsLayout from "./CardsLayout";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();

@@ -17,7 +17,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 //import express from express;
 
 
-function Copyright(props) {
+function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -39,7 +39,7 @@ let token = "";
 
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
   const data = new FormData(event.currentTarget);
   const userData = {

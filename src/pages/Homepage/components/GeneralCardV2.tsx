@@ -3,7 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Card } from "react-bootstrap";
 import ButtonsGroup from "./ButtonsLayout";
 
-function GeneralCardV2(props) {
+interface GeneralCardV2Props {
+  id: number;
+  question: string;
+  category: string;
+  answer: string;
+}
+const GeneralCardV2: React.FC<GeneralCardV2Props> = (props) => {
   return (
     <Card style={{ width: "22rem", backgroundColor: '#f5f5f5' }}>
       <Card.Body>
