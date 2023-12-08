@@ -40,6 +40,7 @@ const defaultTheme = createTheme();
 let incorrectMail = false;
 let weakPassword = false;
 let usedMail = false;
+let errorMessage = "";
 
 
 function MailIncorrectness(email) {
@@ -59,6 +60,7 @@ export default function SignUp() {
     axios.post("http://localhost:4000/register" ,userData).then((response) => {
       navigate('/')}).catch((error) =>
       {usedMail = true;
+        errorMessage = error.response.data.error;
       navigate('/signup');})
   }
 
@@ -161,7 +163,7 @@ export default function SignUp() {
               display: 'flex',justifyContent: 'center'}}> 
               <ErrorOutlineIcon />  {incorrectMail? <p>invalid email address</p>:
               weakPassword? <p>your password is too weak</p>:
-              <p>the email address is already taken</p>}</Box> 
+              <p>{errorMessage}</p>}</Box> 
             }
             </div>
 

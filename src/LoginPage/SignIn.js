@@ -34,6 +34,8 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 let wrongPassword = false;
+let errorMessage = "";
+let token = "";
 
 
 export default function SignIn() {
@@ -49,11 +51,13 @@ export default function SignIn() {
   
 
     axios.post("http://localhost:4000/login", userData).then((response) => {
-      console.log(response.status, response.data.token);
+      console.log(response.data.token);
+      token = response.data.token;
       navigate('/homePage');
     })
     .catch((error)=> {
       wrongPassword = true;
+      errorMessage = error.response.data.error
       navigate('/');
     }
     );
@@ -108,7 +112,7 @@ const handleSignupClick = () => {
               <Box style={{border: '2px solid red', borderRadius: '10px',
               width: '200px', height: '50px', padding: '10px', color: 'red',
               display: 'flex',justifyContent: 'center'}}> 
-              <ErrorOutlineIcon />   incorrect password</Box> 
+              <ErrorOutlineIcon />   {errorMessage}</Box> 
               ): null
             }
 
@@ -175,3 +179,5 @@ const handleSignupClick = () => {
     </ThemeProvider>
   );
 }
+
+function getToken()  {return token;}
