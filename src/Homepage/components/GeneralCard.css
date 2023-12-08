@@ -1,4 +1,5 @@
-.card {
+
+/* .card {
   position: relative;
   width: 240px;
   height: 300px;
@@ -26,7 +27,7 @@
     background-color: #e8e2e2;
     backface-visibility: hidden;
     transition: 1s ease-in-out;
-  }
+  } */
 
   .card__face--front {
     display: flex; /* Add display: flex */
@@ -45,4 +46,4 @@
   .contentObj {
     background-color: #e8e2e2;
   }
-}
+

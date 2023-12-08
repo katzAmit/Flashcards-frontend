@@ -1,5 +1,5 @@
 import * as React from "react";
-import {AppBar,Toolbar,Typography} from "@mui/material";
+import {AppBar,Toolbar,Typography,Button} from "@mui/material";
 import StyleIcon from "@mui/icons-material/Style";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 
@@ -13,11 +13,9 @@ function UpperBar(){
             Flashcards
           </Typography>
           <div style={{ position: "absolute", right: 20 }}>
-            <button
-              style={{ background: "none", border: "none", cursor: "pointer" }}
-            >
-              <NoteAddIcon sx={{ fontSize: 40, color: "white" }} />
-            </button>
+          <Typography variant="h6" color="inherit" noWrap>
+            <Button color="inherit">Logout</Button>
+          </Typography>
           </div>
         </Toolbar>
       </AppBar>
