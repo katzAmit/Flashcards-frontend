@@ -16,7 +16,7 @@ const cards = [
     id: 3,
     category: "Biology",
     question: "Explain the structure of DNA.",
-    answer: "DNA, or deoxyribonucleic acid, is a double-stranded helical structure that contains genetic instructions used in the development and functioning of all known living organisms."
+    answer: "DNA, or deoxyribonucleic acid, i s a double-stranded helical structure that contains genetic instructions used in the development and functioning of all known living organisms."
   },
   {
     id: 4,

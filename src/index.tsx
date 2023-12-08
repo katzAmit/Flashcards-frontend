@@ -1,8 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import "./global.css";
+import React, { StrictMode } from 'react';
+import * as ReactDOM from 'react-dom/client';
+import App from './App';
+import './global.css';
 
-ReactDOM.render(<App />, document.getElementById("root"));
-
-// change to Homepage or SignInPage
+// 
+const root = ReactDOM.createRoot(
+    document.getElementById('root') as HTMLElement
+);
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+);
