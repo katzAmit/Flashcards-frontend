@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import UpperBar from '../LoginPage/components/UpperBar';
+import { RoutesEnum } from '../../types/routes.enum';
 
 function Copyright(props: any) {
   return (
@@ -61,7 +62,7 @@ export default function SignUp() {
       navigate('/')}).catch((error) =>
       {usedMail = true;
         errorMessage = error.response.data.error;
-      navigate('/signup');})
+      navigate(RoutesEnum.REGISTER);})
   }
 
   const handleSignInClick= ()=>{
@@ -78,7 +79,7 @@ export default function SignUp() {
     fName: data.get('firstName'), lName: data.get('lastName')};
     CheckValidation(dataToSend);
 
-    navigate('/signup');
+    navigate(RoutesEnum.REGISTER);
   };
 
   const navigate = useNavigate();

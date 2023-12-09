@@ -72,7 +72,7 @@ export default function SignIn() {
   //adds /signup to route
 const handleSignupClick = () => {
   wrongPassword = false;
-  navigate('/SignUp');
+  navigate(RoutesEnum.REGISTER);
 };
 
   return (
