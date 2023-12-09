@@ -16,8 +16,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import UpperBar from '../LoginPage/components/UpperBar';
+import { RoutesEnum } from '../../types/routes.enum';
 
-function Copyright(props) {
+function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -43,31 +44,31 @@ let usedMail = false;
 let errorMessage = "";
 
 
-function MailIncorrectness(email) {
+function MailIncorrectness(email: any) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return !emailRegex.test(email);
 }
 
-function PasswordIncorrectness(password) {
+function PasswordIncorrectness(password: any) {
   return false;
 }
 
 export default function SignUp() {
 
-  function CheckValidation(userData) {
+  function CheckValidation(userData: any) {
     (MailIncorrectness(userData['username']))? incorrectMail = true :
     (PasswordIncorrectness(userData['password']))? weakPassword = true :
     axios.post("http://localhost:4000/register" ,userData).then((response) => {
       navigate('/')}).catch((error) =>
       {usedMail = true;
         errorMessage = error.response.data.error;
-      navigate('/signup');})
+      navigate(RoutesEnum.REGISTER);})
   }
 
   const handleSignInClick= ()=>{
     navigate('/');
   }
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
 
     incorrectMail = false;
     weakPassword = false;
@@ -78,7 +79,7 @@ export default function SignUp() {
     fName: data.get('firstName'), lName: data.get('lastName')};
     CheckValidation(dataToSend);
 
-    navigate('/signup');
+    navigate(RoutesEnum.REGISTER);
   };
 
   const navigate = useNavigate();

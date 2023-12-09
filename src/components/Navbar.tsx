@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,14 +9,15 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import StyleIcon from "@mui/icons-material/Style";
+import React, { useState } from "react";
 
 const pages = ["Home", "Practice", "Statistics", "Marathon"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenNavMenu = (event: any) => {
+    setAnchorElNav(event);
   };
 
   const handleCloseNavMenu = () => {
@@ -37,7 +37,6 @@ function ResponsiveAppBar() {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -80,7 +79,6 @@ function ResponsiveAppBar() {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography
                     textAlign="center"
-                    sx={{ fontFamily: "monospace" }}
                   >
                     {page}
                   </Typography>
@@ -98,7 +96,6 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -112,7 +109,7 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block", fontFamily: 'cursive ,sans-serif' }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
@@ -120,7 +117,7 @@ function ResponsiveAppBar() {
           </Box>
           <div style={{ position: "absolute", right: 20 }}>
             <Typography variant="h6" color="inherit" noWrap>
-              <Button sx={{ my: 2, color: "white", display: "block", fontFamily: 'cursive ,sans-serif' }}>Logout</Button>
+              <Button sx={{ my: 2, color: "white", display: "block" }}>Logout</Button>
             </Typography>
           </div>
         </Toolbar>

@@ -14,10 +14,12 @@ import UpperBar from './components/UpperBar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { RoutesEnum } from '../../types/routes.enum';
+import { useAuth } from '../../auth/AuthProvider';
 //import express from express;
 
 
-function Copyright(props) {
+function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -39,7 +41,8 @@ let token = "";
 
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const {setToken} = useAuth()
+  const handleSubmit = (event: any) => {
     event.preventDefault();
   const data = new FormData(event.currentTarget);
   const userData = {
@@ -53,12 +56,13 @@ export default function SignIn() {
     axios.post("http://localhost:4000/login", userData).then((response) => {
       console.log(response.data.token);
       token = response.data.token;
-      navigate('/homePage');
+      setToken(token)
+      navigate(RoutesEnum.HOME);
     })
     .catch((error)=> {
       wrongPassword = true;
       errorMessage = error.response.data.error
-      navigate('/');
+      navigate(RoutesEnum.LOGIN);
     }
     );
   };
@@ -68,7 +72,7 @@ export default function SignIn() {
   //adds /signup to route
 const handleSignupClick = () => {
   wrongPassword = false;
-  navigate('/SignUp');
+  navigate(RoutesEnum.REGISTER);
 };
 
   return (
@@ -179,5 +183,3 @@ const handleSignupClick = () => {
     </ThemeProvider>
   );
 }
-
-function getToken()  {return token;}

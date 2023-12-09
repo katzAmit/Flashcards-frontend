@@ -1,9 +1,14 @@
-// GeneralCard.jsx
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import "./GeneralCard.css";
 
-function GeneralCard(props) {
+interface GeneralCardProps {
+  question: string;
+  answer: string;
+  isFlipped: boolean;
+}
+
+const GeneralCard: React.FC<GeneralCardProps> = (props) => {
   const { isFlipped } = props;
 
   return (
