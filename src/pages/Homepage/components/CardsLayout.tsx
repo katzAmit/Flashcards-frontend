@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Grid, Container } from "@mui/material";
-import GeneralCard from "./GeneralCard";
-import GeneralCardV2 from "./GeneralCardV2";
 import { Card } from "../../../components/Card";
-import { FlashCard } from "../../../types/card.interface";
 import { CardGhost } from "../../../components/CardGhost";
+import { FlashCard } from "../../../types/card.interface";
 
 interface CardsLayoutProps {
   cards?: FlashCard[];

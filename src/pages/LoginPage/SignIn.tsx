@@ -14,6 +14,8 @@ import UpperBar from './components/UpperBar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { RoutesEnum } from '../../types/routes.enum';
+import { useAuth } from '../../auth/AuthProvider';
 //import express from express;
 
 
@@ -39,6 +41,7 @@ let token = "";
 
 
 export default function SignIn() {
+  const {setToken} = useAuth()
   const handleSubmit = (event: any) => {
     event.preventDefault();
   const data = new FormData(event.currentTarget);
@@ -53,12 +56,13 @@ export default function SignIn() {
     axios.post("http://localhost:4000/login", userData).then((response) => {
       console.log(response.data.token);
       token = response.data.token;
-      navigate('/homePage');
+      setToken(token)
+      navigate(RoutesEnum.HOME);
     })
     .catch((error)=> {
       wrongPassword = true;
       errorMessage = error.response.data.error
-      navigate('/');
+      navigate(RoutesEnum.LOGIN);
     }
     );
   };
@@ -179,5 +183,3 @@ const handleSignupClick = () => {
     </ThemeProvider>
   );
 }
-
-function getToken()  {return token;}
