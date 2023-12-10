@@ -16,7 +16,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
   // Function to set the authentication token
   const setToken = (newToken: string) => {
-    setToken_(newToken);
+    if (newToken === 'delete') {
+      setToken_('');
+    } else {
+      setToken_(newToken);
+    }
   };
 
   useEffect(() => {

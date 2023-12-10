@@ -10,20 +10,25 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import StyleIcon from "@mui/icons-material/Style";
 import React, { useState } from "react";
-
+import { useAuth } from '../auth/AuthProvider';
+import { useNavigate } from "react-router-dom";
+import { RoutesEnum } from "../types/routes.enum";
 const pages = ["Home", "Practice", "Statistics", "Marathon"];
 
 function ResponsiveNavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
-
+  const { setToken } = useAuth();
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event);
   };
-
+  const navigate = useNavigate();
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  const handleLogout = () => {
+    setToken('delete');
+    navigate(RoutesEnum.LOGIN)
+  };
   return (
     <AppBar
       position="static"
@@ -116,7 +121,7 @@ function ResponsiveNavBar() {
           </Box>
           <div style={{ position: "absolute", right: 20 }}>
             <Typography variant="h6" color="inherit" noWrap>
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
+              <Button sx={{ my: 2, color: "white", display: "block" }} onClick={handleLogout}>
                 Logout
               </Button>
             </Typography>
