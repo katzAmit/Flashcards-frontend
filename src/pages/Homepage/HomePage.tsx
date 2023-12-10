@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import NavBar from "../../components/Navbar";
 import CardsLayout from "./components/CardsLayout";
 import { useEffect, useState } from "react";
-import initialCardsData from "./data";
 import { FlashCard } from "../../types/card.interface";
 import React from "react";
 import { CleaningServices } from "@mui/icons-material";
@@ -19,7 +18,7 @@ export default function Homepage() {
     // }, 1000);
     const fetchFlashCards = async () => {
       try {
-        const res = await axios.get(`https://localhost:4000/flashcards`);
+        const res = await axios.get(`http://localhost:4000/flashcards`);
         setFlashCards(res.data);
       } catch (error) {
         console.error("error fetching data", error);
