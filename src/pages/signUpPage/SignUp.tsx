@@ -84,8 +84,8 @@ export default function SignUp() {
     const dataToSend = {
       username: data.get("email"),
       password: data.get("password"),
-      fName: data.get("firstName"),
-      lName: data.get("lastName"),
+      fname: data.get("fname"),
+      lname: data.get("lname"),
     };
     CheckValidation(dataToSend);
 
@@ -124,10 +124,10 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="fname"
                   required
                   fullWidth
-                  id="firstName"
+                  id="fname"
                   label="First Name"
                   autoFocus
                   sx={{ "& fieldset": { borderColor: "#6352B1" } }}
@@ -137,9 +137,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="lname"
                   label="Last Name"
-                  name="lastName"
+                  name="lname"
                   autoComplete="family-name"
                   sx={{ "& fieldset": { borderColor: "#6352B1" } }}
                 />
