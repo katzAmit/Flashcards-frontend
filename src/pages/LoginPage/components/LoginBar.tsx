@@ -11,8 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import StyleIcon from "@mui/icons-material/Style";
 import React, { useState } from "react";
 
-const pages = ["Home", "Practice", "Statistics", "Marathon"];
-
 function ResponsiveNavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -77,13 +75,7 @@ function ResponsiveNavBar() {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            ></Menu>
           </Box>
           <StyleIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
@@ -103,24 +95,6 @@ function ResponsiveNavBar() {
           >
             Flashcards
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          <div style={{ position: "absolute", right: 20 }}>
-            <Typography variant="h6" color="inherit" noWrap>
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                Logout
-              </Button>
-            </Typography>
-          </div>
         </Toolbar>
       </Container>
     </AppBar>

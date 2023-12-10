@@ -4,12 +4,9 @@ import { RoutesEnum } from "../types/routes.enum";
 import { useAuth } from "./AuthProvider";
 
 const ProtectedRoutes = () => {
-  const {token} = useAuth();
+  const { token } = useAuth();
 
-  return(
-    token ? <Outlet/> : <Navigate to={RoutesEnum.LOGIN}/>
-  )
+  return token ? <Outlet /> : <Navigate to={RoutesEnum.LOGIN} />;
+};
 
-}
-
-export default ProtectedRoutes
+export default ProtectedRoutes;
