@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Container, Button } from "@mui/material";
+import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
+import { styled } from '@mui/system';
 import { Card } from "../../../components/Card";
 import { CardGhost } from "../../../components/CardGhost";
 import { FlashCard } from "../../../types/card.interface";
@@ -7,24 +9,73 @@ import { TiDocumentAdd } from "react-icons/ti";
 import { BiFilterAlt } from "react-icons/bi";
 import axios from "axios";
 
+
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import AddCard from "./AddCard";
+
+
 interface CardsLayoutProps {
   cards?: FlashCard[];
   deleteFlashCard: (id: number) => void;
 }
+
+
+
 const CardsLayout: React.FC<CardsLayoutProps> = ({
   cards,
   deleteFlashCard,
 }) => {
+
+  const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
+const handleAdd = (event: React.MouseEvent<HTMLElement>) => {
+  setAnchor(anchor ? null : event.currentTarget);
+};
+
+const open = Boolean(anchor);
+  const id = open ? 'simple-popper' : undefined;
+
   return (
-    <Container sx={{ py: 8 }} maxWidth="lg">
+    <Container className={`cardsLayout ${open ? 'blurred' : ''}`} sx={{ py: 8 }} maxWidth="lg">
       <Grid>
         <div className="flex items-center gap-2 ml-2 mb-2 justify-between">
           <button className="rounded-full p-2 bg-gray-300 flex items-center justify-center">
             <BiFilterAlt className="text-2xl" />
           </button>
-          <button className="rounded-full p-2 bg-gray-300 flex items-center justify-center">
+          <button aria-describedby={id} type="button" onClick={handleAdd} className="rounded-full p-2 bg-gray-300 flex items-center justify-center">
             <TiDocumentAdd className="text-2xl" />
           </button>
+          <BasePopup id={id} open={open} anchor={anchor}>
+          <Box
+      sx={{
+        backgroundColor: 'white',
+        position: 'relative',
+        top: '50%',
+        left: '-62.25%',
+        boxShadow: '1px 2px 9px #6352B1',
+          margin: '4em',
+          padding: '1em',
+          borderRadius: '15px',
+          
+      
+      }}
+    >
+      <AddCard />
+    </Box>
+      </BasePopup>
         </div>
         <Grid container spacing={4}>
           {cards
