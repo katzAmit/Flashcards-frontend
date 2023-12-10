@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
+
 interface CardProps {
   id: number;
   question: string;
@@ -22,11 +23,11 @@ export const Card: React.FC<CardProps> = ({
         </div>
         <p className="text-gray-700 text-base">{answer}</p>
       </div>
-      <div className="px-6 pt-4 pb-2 flex gap-40">
+      <div className="px-6 pt-4 pb-2 flex justify-between">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           {category}
         </span>
-        <div className="flex items-center gap-2 justify-end ml-2 mb-2">
+        <div className="flex items-center gap-2 ml-2 mb-2">
           <button className="rounded-full">
             <FiEdit />
           </button>
