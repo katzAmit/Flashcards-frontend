@@ -7,6 +7,7 @@ interface CardProps {
   question: string;
   answer: string;
   category: string;
+  onDelete: (id: number) => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -14,6 +15,7 @@ export const Card: React.FC<CardProps> = ({
   question,
   answer,
   category,
+  onDelete,
 }) => {
   return (
     <div className="max-w-sm rounded-xl overflow-hidden shadow-lg flex flex-col justify-between overflow-y-auto max-height h-72">
@@ -31,7 +33,7 @@ export const Card: React.FC<CardProps> = ({
           <button className="rounded-full">
             <FiEdit />
           </button>
-          <button className="rounded-full">
+          <button onClick={() => onDelete(id)} className="rounded-full">
             <FaRegTrashCan />
           </button>
         </div>

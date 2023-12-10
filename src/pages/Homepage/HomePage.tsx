@@ -11,11 +11,25 @@ import axios from "axios";
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
 
+  const deleteFlashCard = (id: number) => {
+    axios
+      .delete(`http://localhost:4000/flashcards/${id}`)
+      .then(() => {
+        setFlashCards((prevCards) =>
+          prevCards?.filter((card) => card.id !== id)
+        );
+      })
+      .catch((error) => {
+        console.error("error deleting flashcard", error);
+      });
+  };
+
   useEffect(() => {
     // Currently just doing some WOW effect to see, remove this timeout when we have data handling
     // setTimeout(() => {
     //   setFlashCards(initialCardsData);
     // }, 1000);
+
     const fetchFlashCards = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/flashcards`);
@@ -35,7 +49,7 @@ export default function Homepage() {
     <>
       <NavBar />
       <main>
-        <CardsLayout cards={flashCards} />
+        <CardsLayout cards={flashCards} deleteFlashCard={deleteFlashCard} />
       </main>
       <Footer />
     </>
