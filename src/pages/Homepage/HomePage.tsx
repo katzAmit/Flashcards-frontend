@@ -24,6 +24,37 @@ export default function Homepage() {
       });
   };
 
+  const addFlashCard = (
+    question: string,
+    answer: string,
+    category: string,
+    difficultyLevel: string
+  ) => {
+    const flashcardData = {
+      question: question,
+      answer: answer,
+      category: category,
+      difficultyLevel: difficultyLevel,
+    };
+    console.log("1");
+    axios
+      .post(`http://localhost:4000/flashcards`, flashcardData)
+      .then((response) => {
+        const newCard: FlashCard = response.data;
+        console.log("2");
+        setFlashCards((prevCards) => {
+          if (prevCards === undefined) {
+            return [newCard];
+          }
+          return [...prevCards, newCard];
+        });
+        console.log("card added successfully");
+      })
+      .catch((error) => {
+        console.error("error adding flashcard", error);
+      });
+  };
+
   useEffect(() => {
     // Currently just doing some WOW effect to see, remove this timeout when we have data handling
     // setTimeout(() => {
@@ -49,7 +80,11 @@ export default function Homepage() {
     <>
       <NavBar />
       <main>
-        <CardsLayout cards={flashCards} deleteFlashCard={deleteFlashCard} />
+        <CardsLayout
+          cards={flashCards}
+          deleteFlashCard={deleteFlashCard}
+          addFlashCard={addFlashCard}
+        />
       </main>
       <Footer />
     </>
