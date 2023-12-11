@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Container, Button } from "@mui/material";
+import React from "react";
+import { Grid, Container } from "@mui/material";
 import { Unstable_Popup as BasePopup } from "@mui/base/Unstable_Popup";
-import { styled } from "@mui/system";
 import { Card } from "../../../components/Card";
 import { CardGhost } from "../../../components/CardGhost";
 import { FlashCard } from "../../../types/card.interface";
 import { TiDocumentAdd } from "react-icons/ti";
 import { BiFilterAlt } from "react-icons/bi";
-import axios from "axios";
-
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import AddCard from "./AddCard";
 
 interface CardsLayoutProps {
@@ -33,7 +16,7 @@ interface CardsLayoutProps {
     question: string,
     answer: string,
     category: string,
-    difficultyLevel: string
+    difficulty_level: string
   ) => void;
 }
 

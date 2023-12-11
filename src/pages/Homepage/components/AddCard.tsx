@@ -1,22 +1,18 @@
 import { Grid, Container, Button } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { createTheme } from "@mui/material/styles";
 
 export default function AddCard(props: any) {
   const [difficulty, setDifficulty] = React.useState("");
   const [question, setQuestion] = React.useState("");
   const [answer, setAnswer] = React.useState("");
   const [category, setCategory] = React.useState("");
+  const [errorFields, setErrorFields] = React.useState<string[]>([]);
 
   const handleDifficultyChange = (event: SelectChangeEvent) => {
     setDifficulty(event.target.value as string);
@@ -35,43 +31,36 @@ export default function AddCard(props: any) {
   };
 
   const handleAddClick = () => {
+    const errors: string[] = [];
+    if (!question) errors.push("Question");
+    if (!answer) errors.push("Answer");
+    if (!category) errors.push("Category");
+    if (!difficulty) errors.push("Difficulty");
+
+    setErrorFields(errors);
+
+    if (errors.length > 0) return;
+
     props.addFlashCard(question, answer, category, difficulty);
     // Optionally, you can clear the form fields here
     setQuestion("");
     setAnswer("");
     setCategory("");
     setDifficulty("");
+    
   };
-  // const [selectedNumber, setSelectedNumber] = useState('');
 
-  // const handleChange = (event:any) => {
-  //   setSelectedNumber(event.target.value);
-
-  // };
+  const isErrorField = (field: string) => errorFields.includes(field);
 
   return (
-    <Container component="main" maxWidth="md">
-      <CssBaseline />
-
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5" fontWeight="bold">
+    <Container component="main" maxWidth="sm">
+      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" fontWeight="bold" style={{ marginBottom: '1.5rem' }}>
           Add A New Card
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          //onSubmit={handleSubmit}
-          sx={{ mt: 3 }}
-        >
+        <form noValidate style={{ width: '100%' }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ width: "100%", height: "150px" }}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
@@ -79,14 +68,16 @@ export default function AddCard(props: any) {
                 label="Question"
                 name="Question"
                 autoComplete="off"
+                multiline
+                rows={4}
+                variant="outlined"
                 value={question}
                 onChange={handleQuestionChange}
-                sx={{
-                  "& fieldset": { borderColor: "#6352B1", height: "140px" },
-                }}
+                error={isErrorField("Question")}
+                helperText={isErrorField("Question") ? 'Please enter a question' : ''}
               />
             </Grid>
-            <Grid item xs={12} sx={{ width: "100%", height: "170px" }}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
@@ -95,29 +86,31 @@ export default function AddCard(props: any) {
                 type="Answer"
                 id="Answer"
                 autoComplete="off"
+                multiline
+                rows={4}
+                variant="outlined"
                 value={answer}
                 onChange={handleAnswerChange}
-                sx={{
-                  "& fieldset": { borderColor: "#6352B1", height: "160px" },
-                }}
+                error={isErrorField("Answer")}
+                helperText={isErrorField("Answer") ? 'Please enter an answer' : ''}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  Difficulty Level
-                </InputLabel>
+                <InputLabel id="demo-simple-select-label">Difficulty Level</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={difficulty}
                   label="Difficulty Level"
                   onChange={handleDifficultyChange}
-                  sx={{ "& fieldset": { borderColor: "#6352B1" } }}
+                  variant="outlined"
+                  error={isErrorField("Difficulty")}
+                  
                 >
-                  <MenuItem value={1}>easy</MenuItem>
-                  <MenuItem value={2}>medium</MenuItem>
-                  <MenuItem value={3}>hard</MenuItem>
+                  <MenuItem value={'Easy'}>Easy</MenuItem>
+                  <MenuItem value={'Medium'}>Medium</MenuItem>
+                  <MenuItem value={'Hard'}>Hard</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -129,38 +122,32 @@ export default function AddCard(props: any) {
                 label="Category"
                 name="Category"
                 autoComplete="Category"
+                variant="outlined"
                 value={category}
                 onChange={handleCategoryChange}
-                sx={{ "& fieldset": { borderColor: "#6352B1" } }}
+                error={isErrorField("Category")}
+                helperText={isErrorField("Category") ? 'Please enter a category' : ''}
               />
             </Grid>
           </Grid>
-
-          <Grid item xs={12} sm={6}>
+          <Grid container justifyContent="space-between" style={{ marginTop: '2rem' }}>
             <Button
-              type="submit"
-              fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "#6352B1" }}
+              color="primary"
               onClick={handleAddClick}
             >
-              Add
+              Add Card
             </Button>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Button
+            <Button 
               type="submit"
-              //fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, color: "#6352B1", backgroundColor: "white" }}
+              color="primary"
             >
-              Go Back
+              Cancel
             </Button>
           </Grid>
-
-          <Grid container justifyContent="flex-end"></Grid>
-        </Box>
-      </Box>
+        </form>
+      </div>
     </Container>
   );
 }
