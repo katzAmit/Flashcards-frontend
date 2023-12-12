@@ -65,7 +65,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
                 borderRadius: "15px",
               }}
             >
-              <AddCard addFlashCard={addFlashCard} />
+              <AddCard addFlashCard={addFlashCard} setAnchor={setAnchor} />
             </Box>
           </BasePopup>
         </div>

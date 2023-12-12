@@ -40,25 +40,35 @@ export default function AddCard(props: any) {
     setErrorFields(errors);
 
     if (errors.length > 0) return;
-
+    props.setAnchor(null);
     props.addFlashCard(question, answer, category, difficulty);
     // Optionally, you can clear the form fields here
     setQuestion("");
     setAnswer("");
     setCategory("");
     setDifficulty("");
-    
   };
 
   const isErrorField = (field: string) => errorFields.includes(field);
 
   return (
     <Container component="main" maxWidth="sm">
-      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4" fontWeight="bold" style={{ marginBottom: '1.5rem' }}>
+      <div
+        style={{
+          marginTop: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          style={{ marginBottom: "1.5rem" }}
+        >
           Add A New Card
         </Typography>
-        <form noValidate style={{ width: '100%' }}>
+        <form noValidate style={{ width: "100%" }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -74,7 +84,9 @@ export default function AddCard(props: any) {
                 value={question}
                 onChange={handleQuestionChange}
                 error={isErrorField("Question")}
-                helperText={isErrorField("Question") ? 'Please enter a question' : ''}
+                helperText={
+                  isErrorField("Question") ? "Please enter a question" : ""
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,12 +104,16 @@ export default function AddCard(props: any) {
                 value={answer}
                 onChange={handleAnswerChange}
                 error={isErrorField("Answer")}
-                helperText={isErrorField("Answer") ? 'Please enter an answer' : ''}
+                helperText={
+                  isErrorField("Answer") ? "Please enter an answer" : ""
+                }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Difficulty Level</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Difficulty Level
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -106,11 +122,10 @@ export default function AddCard(props: any) {
                   onChange={handleDifficultyChange}
                   variant="outlined"
                   error={isErrorField("Difficulty")}
-                  
                 >
-                  <MenuItem value={'Easy'}>Easy</MenuItem>
-                  <MenuItem value={'Medium'}>Medium</MenuItem>
-                  <MenuItem value={'Hard'}>Hard</MenuItem>
+                  <MenuItem value={"Easy"}>Easy</MenuItem>
+                  <MenuItem value={"Medium"}>Medium</MenuItem>
+                  <MenuItem value={"Hard"}>Hard</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -126,11 +141,17 @@ export default function AddCard(props: any) {
                 value={category}
                 onChange={handleCategoryChange}
                 error={isErrorField("Category")}
-                helperText={isErrorField("Category") ? 'Please enter a category' : ''}
+                helperText={
+                  isErrorField("Category") ? "Please enter a category" : ""
+                }
               />
             </Grid>
           </Grid>
-          <Grid container justifyContent="space-between" style={{ marginTop: '2rem' }}>
+          <Grid
+            container
+            justifyContent="space-between"
+            style={{ marginTop: "2rem" }}
+          >
             <Button
               variant="contained"
               color="primary"
@@ -138,10 +159,13 @@ export default function AddCard(props: any) {
             >
               Add Card
             </Button>
-            <Button 
+            <Button
               type="submit"
               variant="contained"
               color="primary"
+              onClick={() => {
+                props.setAnchor(null);
+              }}
             >
               Cancel
             </Button>
