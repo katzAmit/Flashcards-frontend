@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
+import { FlashCard } from "../types/card.interface";
 
 interface CardProps {
   id: number;
@@ -8,6 +9,7 @@ interface CardProps {
   answer: string;
   category: string;
   onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -16,6 +18,7 @@ export const Card: React.FC<CardProps> = ({
   answer,
   category,
   onDelete,
+  onEdit,
 }) => {
   return (
     <div className="max-w-sm rounded-xl overflow-hidden shadow-lg flex flex-col justify-between overflow-y-auto max-height h-72">
@@ -30,10 +33,10 @@ export const Card: React.FC<CardProps> = ({
           {category}
         </span>
         <div className="flex items-center gap-2 ml-2 mb-2">
-          <button className="rounded-full">
+          <button className="rounded-full" onClick={() => onEdit(id)}>
             <FiEdit />
           </button>
-          <button onClick={() => onDelete(id)} className="rounded-full">
+          <button className="rounded-full" onClick={() => onDelete(id)}>
             <FaRegTrashCan />
           </button>
         </div>
