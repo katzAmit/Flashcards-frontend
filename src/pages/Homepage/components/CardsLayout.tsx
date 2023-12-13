@@ -8,6 +8,7 @@ import { TiDocumentAdd } from "react-icons/ti";
 import { BiFilterAlt } from "react-icons/bi";
 import Box from "@mui/material/Box";
 import AddCard from "./AddCard";
+import FilterBox from "./FilterBox";
 
 interface CardsLayoutProps {
   cards?: FlashCard[];
@@ -30,28 +31,35 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     setAnchor(anchor ? null : event.currentTarget);
   };
 
+  const [isFilter, setFilter] = React.useState(false);
+
+  function handleFilter(event: React.MouseEvent<HTMLElement>) {
+    setFilter(isFilter ? false : true);
+  }
+
   const open = Boolean(anchor);
   const id = open ? "simple-popper" : undefined;
 
   return (
-    <Container
-      className={`cardsLayout ${open ? "blurred" : ""}`}
-      sx={{ py: 8 }}
-      maxWidth="lg"
-    >
-      <Grid>
-        <div className="flex items-center gap-2 ml-2 mb-2 justify-between">
-          <button className="rounded-full p-2 bg-gray-300 flex items-center justify-center">
-            <BiFilterAlt className="text-2xl" />
-          </button>
-          <button
-            aria-describedby={id}
-            type="button"
-            onClick={handleAdd}
-            className="rounded-full p-2 bg-gray-300 flex items-center justify-center"
-          >
-            <TiDocumentAdd className="text-2xl" />
-          </button>
+    <Grid>
+          <div className="flex items-center gap-2 ml-2 mb-8 justify-between">
+  <button
+    className="rounded-full p-2 ml-20 bg-gray-300 flex items-center justify-center"
+    onClick={handleFilter}
+  >
+    <BiFilterAlt className="text-2xl mb-1" />
+    {/* Adjusted the icon size and added margin-bottom */}
+  </button>
+  <button
+    aria-describedby={id}
+    type="button"
+    onClick={handleAdd}
+    className="rounded-full p-2 bg-gray-300 flex items-center justify-center"
+  >
+    <TiDocumentAdd className="text-2xl mb-1 " />
+    {/* Adjusted the icon size and added margin-bottom */}
+  </button>
+
           <BasePopup id={id} open={open} anchor={anchor}>
             <Box
               sx={{
@@ -69,7 +77,17 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
             </Box>
           </BasePopup>
         </div>
-        <Grid container spacing={4}>
+
+
+<Grid container spacing={2}>
+      {/* Row 2: Filter Box */}
+      <Grid item xs={1.2}>
+      {isFilter && <FilterBox />}
+      </Grid>
+
+      {/* Row 3: Card Grid Container */}
+      <Grid item xs={10.8}>
+      <Grid container spacing={4}>
           {cards
             ? cards.map((card) => (
                 <Grid item key={card.id} xs={12} sm={6} md={4}>
@@ -89,7 +107,9 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
               ))}
         </Grid>
       </Grid>
-    </Container>
+    </Grid>
+    </Grid>
+
   );
 };
 

@@ -6,7 +6,10 @@ import { FlashCard } from "../../types/card.interface";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
+import FilterBox from "./components/FilterBox";
+
 import { RoutesEnum } from "../../types/routes.enum";
+import { Filter } from "@mui/icons-material";
 
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
@@ -47,7 +50,6 @@ export default function Homepage() {
           return [...prevCards, newCard];
         });
         console.log("card added successfully");
-        navigate(RoutesEnum.HOME);
       })
       .catch((error) => {
         console.error("error adding flashcard", error);
