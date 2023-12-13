@@ -8,6 +8,8 @@ import { TiDocumentAdd } from "react-icons/ti";
 import { BiFilterAlt } from "react-icons/bi";
 import Box from "@mui/material/Box";
 import AddCard from "./AddCard";
+import EditCard from "./EditCard";
+import axios from "axios";
 
 interface CardsLayoutProps {
   cards?: FlashCard[];
@@ -26,8 +28,36 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   addFlashCard,
 }) => {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
+
   const handleAdd = (event: React.MouseEvent<HTMLElement>) => {
     setAnchor(anchor ? null : event.currentTarget);
+  };
+
+  const [editCardData, setEditCardData] = React.useState<FlashCard | null>(
+    null
+  );
+  const [editCardPopupVisible, setEditCardPopupVisible] =
+    React.useState<boolean>(false);
+
+  const handleEditClick = (id: number) => {
+    const cardDataToEdit = cards?.find((card) => card.id === id) || null;
+    setEditCardData(cardDataToEdit);
+    setEditCardPopupVisible(true);
+  };
+
+  const updateFlashCard = async (updatedData: FlashCard) => {
+    try {
+      // Assuming you have a function or library (e.g., axios) to send a PUT request
+      await axios.put(
+        `http://localhost:4000/flashcards/${updatedData.id}`,
+        updatedData
+      );
+
+      // Handle success, update state or perform other actions as needed
+    } catch (error) {
+      // Handle errors, e.g., display an error message to the user
+      console.error("Error updating flashcard:", error);
+    }
   };
 
   const open = Boolean(anchor);
@@ -40,7 +70,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
       maxWidth="lg"
     >
       <Grid>
-        <div className="flex items-center gap-2 ml-2 mb-2 justify-between">
+        <div className="flex items-center mb-8 justify-between">
           <button className="rounded-full p-2 bg-gray-300 flex items-center justify-center">
             <BiFilterAlt className="text-2xl" />
           </button>
@@ -79,6 +109,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
                     answer={card.answer}
                     category={card.category}
                     onDelete={() => deleteFlashCard(card.id)}
+                    onEdit={() => handleEditClick(card.id)}
                   />
                 </Grid>
               ))
@@ -89,6 +120,13 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
               ))}
         </Grid>
       </Grid>
+      {editCardPopupVisible && (
+        <EditCard
+          cardData={editCardData}
+          setAnchor={setEditCardPopupVisible}
+          updateFlashCard={updateFlashCard}
+        />
+      )}
     </Container>
   );
 };

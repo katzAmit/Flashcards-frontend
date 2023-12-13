@@ -3,4 +3,5 @@ export type FlashCard = {
   category: string;
   question: string;
   answer: string;
+  difficulty_level: string;
 };
