@@ -20,12 +20,14 @@ interface CardsLayoutProps {
     category: string,
     difficulty_level: string
   ) => void;
+  updateFlashCard: (card: FlashCard) => void;
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
   cards,
   deleteFlashCard,
   addFlashCard,
+  updateFlashCard,
 }) => {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
 
@@ -43,21 +45,6 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     const cardDataToEdit = cards?.find((card) => card.id === id) || null;
     setEditCardData(cardDataToEdit);
     setEditCardPopupVisible(true);
-  };
-
-  const updateFlashCard = async (updatedData: FlashCard) => {
-    try {
-      // Assuming you have a function or library (e.g., axios) to send a PUT request
-      await axios.put(
-        `http://localhost:4000/flashcards/${updatedData.id}`,
-        updatedData
-      );
-
-      // Handle success, update state or perform other actions as needed
-    } catch (error) {
-      // Handle errors, e.g., display an error message to the user
-      console.error("Error updating flashcard:", error);
-    }
   };
 
   const open = Boolean(anchor);
@@ -125,6 +112,10 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
           cardData={editCardData}
           setAnchor={setEditCardPopupVisible}
           updateFlashCard={updateFlashCard}
+          onEditComplete={(updatedData: FlashCard) => {
+            updateFlashCard(updatedData);
+            // Perform any other actions you need after the edit is complete
+          }}
         />
       )}
     </Container>

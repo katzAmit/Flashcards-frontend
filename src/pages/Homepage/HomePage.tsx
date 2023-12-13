@@ -11,6 +11,7 @@ import { RoutesEnum } from "../../types/routes.enum";
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
   const navigate = useNavigate();
+
   const deleteFlashCard = (id: number) => {
     axios
       .delete(`http://localhost:4000/flashcards/${id}`)
@@ -54,6 +55,28 @@ export default function Homepage() {
       });
   };
 
+  const updateFlashCard = async (updatedData: FlashCard) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/flashcards/${updatedData.id}`,
+        updatedData
+      );
+
+      const updatedFlashcard = response.data;
+
+      setFlashCards((prevCards) =>
+        prevCards?.map((card) =>
+          card.id === updatedFlashcard.id ? updatedFlashcard : card
+        )
+      );
+
+      // Handle success, you might want to show a message or perform other actions
+    } catch (error) {
+      // Handle errors, e.g., display an error message to the user
+      console.error("Error updating flashcard:", error);
+    }
+  };
+
   useEffect(() => {
     // Currently just doing some WOW effect to see, remove this timeout when we have data handling
     // setTimeout(() => {
@@ -83,6 +106,7 @@ export default function Homepage() {
           cards={flashCards}
           deleteFlashCard={deleteFlashCard}
           addFlashCard={addFlashCard}
+          updateFlashCard={updateFlashCard}
         />
       </main>
       <Footer />
