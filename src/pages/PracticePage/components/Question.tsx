@@ -63,9 +63,12 @@ const Question: React.FC<QuestionProps> = (props) => {
 
   return (
     <Container component="main" maxWidth="sm" className="flex items-center justify-center h-full">
-      <Paper className="w-full p-4 max-h-full overflow-hidden overflow-y-auto">
+      <Paper className="w-full p-4 max-h-full overflow-hidden overflow-y-auto" sx={{
+        fontFamily: "Arial, sans-serif", // Match the font with NavBar and Quiz
+        marginTop: '20px', // Adjust top margin
+      }}>
         <div className="flex justify-between mb-2">
-          <Typography variant="h6" className="font-bold text-xl">
+          <Typography variant="h6" className="font-bold text-xl" sx={{ fontFamily: "Arial, sans-serif" }}>
             {`${props.question}`}
           </Typography>
         </div>

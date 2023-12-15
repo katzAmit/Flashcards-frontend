@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
+  
 } from "react-router-dom";
 import SignIn from "./pages/LoginPage/SignIn";
 import SignUp from "./pages/signUpPage/SignUp";
 import Homepage from "./pages/Homepage/HomePage";
 import ProtectedRoutes from "./auth/ProtectedRoute";
 import AuthProvider from "./auth/AuthProvider";
-import Question from "./pages/PracticePage/components/Question";
+import QuizesLayout from "./pages/PracticePage/components/QuizesLayout";
 import { RoutesEnum } from "./types/routes.enum";
 import Quiz from "./pages/PracticePage/components/Quiz";
 
@@ -32,13 +32,13 @@ export default function App() {
       <Router>
         <Routes>
           <Route element={<ProtectedRoutes />}>
-            <Route path="/" element={<Homepage />} />
             <Route path={RoutesEnum.HOME} element={<Homepage />} />
+            <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
+            {/* <Route path={RoutesEnum.PRACTICE} element={<Quiz start_time = {new Date()} id={quizData[0].id} title={quizData[0].title} flashcards={quizData[0].flashcards} />} /> */}
           </Route>
           <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
           <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
-          <Route path="/quiz" element={<Quiz start_time = {new Date()} id={quizData[0].id} title={quizData[0].title} flashcards={quizData[0].flashcards} />} />
         </Routes>
       </Router>
     </AuthProvider>

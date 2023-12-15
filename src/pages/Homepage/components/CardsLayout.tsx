@@ -9,7 +9,6 @@ import { BiFilterAlt } from "react-icons/bi";
 import Box from "@mui/material/Box";
 import AddCard from "./AddCard";
 import EditCard from "./EditCard";
-import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 
 
 interface CardsLayoutProps {
