@@ -6,7 +6,10 @@ import { FlashCard } from "../../types/card.interface";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
+import FilterBox from "./components/FilterBox";
+
 import { RoutesEnum } from "../../types/routes.enum";
+import { Filter } from "@mui/icons-material";
 
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
@@ -48,7 +51,6 @@ export default function Homepage() {
           return [...prevCards, newCard];
         });
         console.log("card added successfully");
-        navigate(RoutesEnum.HOME);
       })
       .catch((error) => {
         console.error("error adding flashcard", error);
@@ -76,6 +78,18 @@ export default function Homepage() {
       console.error("Error updating flashcard:", error);
     }
   };
+
+  const filterFlashCards = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4000/flashcards`);
+
+      setFlashCards(res.data);
+    } catch (error) {
+      console.error("Error filtering flashcard:", error);
+    }
+  };
+
+  
 
   useEffect(() => {
     // Currently just doing some WOW effect to see, remove this timeout when we have data handling
@@ -107,6 +121,7 @@ export default function Homepage() {
           deleteFlashCard={deleteFlashCard}
           addFlashCard={addFlashCard}
           updateFlashCard={updateFlashCard}
+          filterFlashCards={filterFlashCards}
         />
       </main>
       <Footer />
