@@ -1,17 +1,17 @@
-import React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import StyleIcon from "@mui/icons-material/Style";
+import React from "react";
 
 function LoginBar() {
   return (
     <AppBar
       position="static"
-      sx={{height: "68px", backgroundColor: "#6352B1" }}>
-        <Container maxWidth="xl">
+      sx={{ height: "68px", backgroundColor: "#6352B1" }}
+    >
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <StyleIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -24,16 +24,16 @@ function LoginBar() {
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
               letterSpacing: ".3rem",
+              fontFamily: "monospace",
               color: "inherit",
               textDecoration: "none",
             }}
           >
             Flashcards
           </Typography>
-      </Toolbar>
+        </Toolbar>
       </Container>
     </AppBar>
   );
 }
-
 export default LoginBar;
