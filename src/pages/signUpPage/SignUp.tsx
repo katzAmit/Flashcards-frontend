@@ -95,7 +95,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <>
       <UpperBar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -224,6 +224,6 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+    </>
   );
 }
