@@ -5,3 +5,10 @@ export type FlashCard = {
   answer: string;
   difficulty_level: string;
 };
+
+export type MarathonType = {
+  id: number;
+  category: string;
+  total_days: number;
+  current_day: number;
+};
