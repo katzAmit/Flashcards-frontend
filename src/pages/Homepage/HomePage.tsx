@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import FilterBox from "./components/FilterBox";
-
+import { FilterCriteria } from "../../types/filter.criteria";
 import { RoutesEnum } from "../../types/routes.enum";
 import { Filter } from "@mui/icons-material";
 
@@ -78,16 +78,32 @@ export default function Homepage() {
       console.error("Error updating flashcard:", error);
     }
   };
-
-  const filterFlashCards = async () => {
-    try {
-      const res = await axios.get(`http://localhost:4000/flashcards`);
-
-      setFlashCards(res.data);
-    } catch (error) {
-      console.error("Error filtering flashcard:", error);
-    }
+  
+  const filterFlashCards = (criteria: FilterCriteria) => {
+    // Implement your filtering logic based on the criteria
+    const filtered = flashCards?.filter((card) => {
+      if (criteria.category?.length && !criteria.category.includes(card.category)) {
+        return false;
+      }
+      if (criteria.difficulty?.length && !criteria.difficulty.includes(card.difficulty_level)) {
+        return false;
+      }      
+      return true;
+    });
+    setFlashCards(filtered);
   };
+  
+  
+
+
+  // const filterFlashCards = async () => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:4000/flashcards`);
+  //     setFlashCards(res.data);
+  //   } catch (error) {
+  //     console.error("Error filtering flashcard:", error);
+  //   }
+  // };
 
   
 

@@ -2,6 +2,8 @@ import * as React from "react";
 import { Disclosure } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { useState, useEffect } from "react";
+import { FilterCriteria } from "../../../types/filter.criteria";
+
 import axios from "axios";
 
 export type Category = {
@@ -9,8 +11,9 @@ export type Category = {
   username: string;
 }
 
+
 interface FilterBoxProps {
-  filterFlashCards: (params:string[]) => void;
+  filterFlashCards: (criteria: FilterCriteria) => void;
 }
 
 const FilterBox: React.FC<FilterBoxProps> = ({
@@ -33,6 +36,39 @@ const FilterBox: React.FC<FilterBoxProps> = ({
       ],
     },
   ]);
+
+  const handleCheckboxChange = (sectionId: string, optionIdx: number) => {
+    setFilters((prevFilters) => {
+      const updatedFilters = [...prevFilters];
+      const sectionIndex = updatedFilters.findIndex((filter) => filter.id === sectionId);
+
+      if (sectionIndex !== -1) {
+        const updatedOptions = [...updatedFilters[sectionIndex].options];
+        updatedOptions[optionIdx].checked = !updatedOptions[optionIdx].checked;
+
+        updatedFilters[sectionIndex] = {
+          ...updatedFilters[sectionIndex],
+          options: updatedOptions,
+        };
+      }
+
+      return updatedFilters;
+    });
+  };
+
+  useEffect(() => {
+    const updatedFilterCriteria: FilterCriteria = { "category": [], "difficulty": [] };
+
+    filters.forEach((section) => {
+      const checkedOptions = section.options.filter((option) => option.checked).map((option) => option.value);
+      if (checkedOptions.length > 0) {
+        updatedFilterCriteria[section.id as keyof FilterCriteria] = checkedOptions;
+      }
+    });
+
+    filterFlashCards(updatedFilterCriteria);
+  }, [filters, filterFlashCards]);
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -101,6 +137,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
                         type="checkbox"
                         defaultChecked={option.checked}
                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        onChange={() => handleCheckboxChange(section.id, optionIdx)}
                       />
                       <label
                         htmlFor={`filter-mobile-${section.id}-${optionIdx}`}

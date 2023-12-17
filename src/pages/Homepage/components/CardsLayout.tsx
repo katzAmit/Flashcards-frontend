@@ -4,6 +4,7 @@ import { Unstable_Popup as BasePopup } from "@mui/base/Unstable_Popup";
 import { Card } from "../../../components/Card";
 import { CardGhost } from "../../../components/CardGhost";
 import { FlashCard } from "../../../types/card.interface";
+import { FilterCriteria } from "../../../types/filter.criteria";
 import { TiDocumentAdd } from "react-icons/ti";
 import { BiFilterAlt } from "react-icons/bi";
 import Box from "@mui/material/Box";
@@ -22,7 +23,7 @@ interface CardsLayoutProps {
     difficulty_level: string
   ) => void;
   updateFlashCard: (card: FlashCard) => void;
-  filterFlashCards: () => void;
+  filterFlashCards: (criteria: FilterCriteria) => void;
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
