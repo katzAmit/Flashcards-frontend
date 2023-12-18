@@ -19,6 +19,8 @@ import {
 import axios from "axios";
 import Quiz from "./Quiz";
 import ResponsiveNavBar from "../../../components/Navbar";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 type Category = {
   category: string;
@@ -48,6 +50,10 @@ const QuizesLayout = () => {
     fetchCategories();
   }, []);
 
+  const handleFinishQuiz = () => {
+    setSelectedQuiz(null);
+  };
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:4000/categories");
@@ -72,45 +78,32 @@ const QuizesLayout = () => {
         return "#9E9E9E"; // Grey for other levels
     }
   };
-  const generateQuizzes = async () => {
+  const [error, setError] = useState(""); // State to hold error message
+
+  const handleCloseError = () => {
+    setError("");
+  };
+
+  const generateQuizzes = async (categoriesToSend: string[]) => {
     setLoading(true);
+
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      const generatedQuizzes = [
-        {
-          id: "1",
-          title: "Quiz 1",
-          categories: ["Biology", "Maths"],
-          flashcards: [
-            {
-              id: "1",
-              question: "Question 1",
-              answer: "Answer 1",
-              difficulty_level: 2,
-            },
-          ],
-          difficulty_levels: ["Easy", "Medium"],
-        },
-        {
-          id: "2",
-          title: "Quiz 2",
-          categories: ["Computer Science", "Maths"],
-          flashcards: [
-            {
-              id: "12345",
-              question: "Question 2",
-              answer: "Answer 2",
-              difficulty_level: 2,
-            },
-          ],
-          difficulty_levels: ["Medium", "Hard"],
-        },
-      ];
+      const response = await axios.post("http://localhost:4000/quizzes", {
+        categories: categoriesToSend,
+      });
 
-      setQuizzes(generatedQuizzes);
-    } catch (error) {
-      console.error("Error generating quizzes:", error);
+      const quizzesData = response.data;
+      setQuizzes(quizzesData);
+    } catch (error: any) {
+      console.error("Error fetching quizzes:", error);
+      if (error.response && error.response.status === 400) {
+        setError(error.response.data.error); // Set specific error message for 400 status
+        setQuizzes([]); // Clear quizzes data when encountering an error
+      } else {
+        setError("Failed to generate quizzes"); // Use a generic message for other errors
+      }
     } finally {
       setLoading(false);
     }
@@ -141,6 +134,20 @@ const QuizesLayout = () => {
                     Choose up to 3 categories to be tested on!
                   </div>
                 </Typography>
+                <Snackbar
+                  open={error !== ""}
+                  autoHideDuration={6000}
+                  onClose={handleCloseError}
+                >
+                  <MuiAlert
+                    elevation={6}
+                    variant="filled"
+                    onClose={handleCloseError}
+                    severity="error"
+                  >
+                    {error}
+                  </MuiAlert>
+                </Snackbar>
                 <FormControl component="fieldset">
                   <Grid container spacing={2}>
                     {categories.map((category: Category) => (
@@ -206,7 +213,7 @@ const QuizesLayout = () => {
                     loading
                   }
                   sx={{ backgroundColor: "#2E3B55" }}
-                  onClick={generateQuizzes}
+                  onClick={() => generateQuizzes(selectedCategories)}
                 >
                   <Typography
                     sx={{
@@ -334,9 +341,10 @@ const QuizesLayout = () => {
                 id={quizzes[selectedQuiz].id}
                 title={quizzes[selectedQuiz].title}
                 flashcards={quizzes[selectedQuiz].flashcards}
-                onFinish={() => {
+                onFinish={
+                  handleFinishQuiz
                   // Define your onFinish function here
-                }}
+                }
               />
             </Grid>
           )}
