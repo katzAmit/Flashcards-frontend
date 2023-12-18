@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage/HomePage";
 import ProtectedRoutes from "./auth/ProtectedRoute";
 import AuthProvider from "./auth/AuthProvider";
 import QuizesLayout from "./pages/PracticePage/components/QuizesLayout";
+import MarathonPage from "./pages/MarathonPage/MarathonPage";
 import { RoutesEnum } from "./types/routes.enum";
 import Quiz from "./pages/PracticePage/components/Quiz";
 
@@ -38,6 +39,7 @@ export default function App() {
           <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
           <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
+          <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
         </Routes>
       </Router>
     </AuthProvider>

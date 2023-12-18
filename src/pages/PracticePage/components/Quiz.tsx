@@ -9,7 +9,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Question from "./Question";
+import { RoutesEnum } from "../../../types/routes.enum";
 
 interface Flashcard {
   question: string;
@@ -24,11 +26,11 @@ interface QuizProps {
   onFinish: () => void; // Include onFinish property
 }
 
-const Quiz: React.FC<QuizProps> = ({ flashcards, title }) => {
+const Quiz: React.FC<QuizProps> = ({ flashcards, title, onFinish }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const questionCount = flashcards.length;
-
+  const navigate = useNavigate();
   const goToPreviousCard = () => {
     setCurrentCardIndex((prevIndex) => prevIndex - 1);
   };
@@ -53,8 +55,8 @@ const Quiz: React.FC<QuizProps> = ({ flashcards, title }) => {
 
   const handleCancelAndNavigate = () => {
     handleCancelDialogClose();
-    // Navigate back to the /practice route
-    // Implement your navigation logic here
+    onFinish();
+    navigate(RoutesEnum.PRACTICE);
   };
 
   return (

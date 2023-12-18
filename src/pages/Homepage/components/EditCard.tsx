@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { FlashCard } from "../../../types/card.interface";
 import { AxiosError } from "axios";
+import { DifficultyLevelEnum } from "../../../components/Card/types";
 
 interface EditCardProps {
   cardData: FlashCard | null;
@@ -32,7 +33,7 @@ const EditCard: React.FC<EditCardProps> = ({
   onEditComplete,
 }) => {
   const [open, setOpen] = useState(true);
-  const [difficulty, setDifficulty] = useState("");
+  const [difficulty, setDifficulty] = useState<DifficultyLevelEnum>();
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
@@ -47,8 +48,10 @@ const EditCard: React.FC<EditCardProps> = ({
     }
   }, [cardData]);
 
-  const handleDifficultyChange = (event: SelectChangeEvent<string>) => {
-    setDifficulty(event.target.value);
+  const handleDifficultyChange = (event: SelectChangeEvent<DifficultyLevelEnum>) => {
+    if (event.target.value === undefined) return;
+
+    setDifficulty(event.target.value as DifficultyLevelEnum);
   };
 
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +82,7 @@ const EditCard: React.FC<EditCardProps> = ({
       question,
       answer,
       category,
-      difficulty_level: difficulty,
+      difficulty_level: difficulty ?? DifficultyLevelEnum.Easy
     };
 
     try {

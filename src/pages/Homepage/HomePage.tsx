@@ -1,7 +1,7 @@
 import Footer from "./components/Footer";
 import NavBar from "../../components/Navbar";
 import CardsLayout from "./components/CardsLayout";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FlashCard } from "../../types/card.interface";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -10,9 +10,13 @@ import FilterBox from "./components/FilterBox";
 import { FilterCriteria } from "../../types/filter.criteria";
 import { RoutesEnum } from "../../types/routes.enum";
 import { Filter } from "@mui/icons-material";
+import { DifficultyLevelEnum } from "../../components/Card/types";
 
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
+  const [viewedFlashCards, setViewedFlashCards] = useState<FlashCard[]>();
+  
+  const [isDataFetched, setIsDataFetched] = useState(false);
   const navigate = useNavigate();
 
   const deleteFlashCard = (id: number) => {
@@ -32,7 +36,7 @@ export default function Homepage() {
     question: string,
     answer: string,
     category: string,
-    difficulty_level: string
+    difficulty_level: DifficultyLevelEnum
   ) => {
     const flashcardData = {
       question: question,
@@ -78,66 +82,49 @@ export default function Homepage() {
       console.error("Error updating flashcard:", error);
     }
   };
-  
-  const filterFlashCards = (criteria: FilterCriteria) => {
-    // Implement your filtering logic based on the criteria
-    const filtered = flashCards?.filter((card) => {
-      if (criteria.category?.length && !criteria.category.includes(card.category)) {
-        return false;
-      }
-      if (criteria.difficulty?.length && !criteria.difficulty.includes(card.difficulty_level)) {
-        return false;
-      }      
-      return true;
-    });
-    setFlashCards(filtered);
-  };
-  
-  
 
+  const onFilterChanged = useMemo(
+    () => (criteria: FilterCriteria) => {
+      const filtered = flashCards?.filter((card) => {
+        if (criteria.category?.length && !criteria.category.includes(card.category)) {
+          return false;
+        }
+        if (criteria.difficulty?.length && !criteria.difficulty.includes(card.difficulty_level)) {
+          return false;
+        }
+        return true;
+      });
+      setViewedFlashCards(filtered);
+    }, [flashCards])
 
-  // const filterFlashCards = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:4000/flashcards`);
-  //     setFlashCards(res.data);
-  //   } catch (error) {
-  //     console.error("Error filtering flashcard:", error);
-  //   }
-  // };
-
-  
-
+  // Initial data fetch
   useEffect(() => {
-    // Currently just doing some WOW effect to see, remove this timeout when we have data handling
-    // setTimeout(() => {
-    //   setFlashCards(initialCardsData);
-    // }, 1000);
+    if (!isDataFetched) {
+      const fetchFlashCards = async () => {
+        try {
+          const res = await axios.get(`http://localhost:4000/flashcards`);
+          setFlashCards(res.data);
+          setViewedFlashCards(res.data);
+          setIsDataFetched(true);
+        } catch (error) {
+          console.error("error fetching data", error);
+        }
+      };
+      fetchFlashCards();
+    }
+  }, [isDataFetched]);
 
-    const fetchFlashCards = async () => {
-      try {
-        const res = await axios.get(`http://localhost:4000/flashcards`);
-        setFlashCards(res.data);
-      } catch (error) {
-        console.error("error fetching data", error);
-      }
-    };
-
-    fetchFlashCards();
-    // TODO:
-    // 1. fetch data from backend
-    // 2. set data to state
-  }, []);
 
   return (
     <>
       <NavBar />
       <main>
         <CardsLayout
-          cards={flashCards}
+          cards={viewedFlashCards}
           deleteFlashCard={deleteFlashCard}
           addFlashCard={addFlashCard}
           updateFlashCard={updateFlashCard}
-          filterFlashCards={filterFlashCards}
+          filterFlashCards={onFilterChanged}
         />
       </main>
       <Footer />
