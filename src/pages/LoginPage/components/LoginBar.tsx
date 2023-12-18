@@ -24,7 +24,6 @@ function LoginBar() {
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
               letterSpacing: ".3rem",
-              fontFamily: "monospace",
               color: "inherit",
               textDecoration: "none",
             }}

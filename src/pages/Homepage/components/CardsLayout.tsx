@@ -12,6 +12,7 @@ import AddCard from "./AddCard";
 import EditCard from "./EditCard";
 
 import FilterBox from "./FilterBox";
+import { DifficultyLevelEnum } from "../../../components/Card/types";
 
 interface CardsLayoutProps {
   cards?: FlashCard[];
@@ -20,7 +21,7 @@ interface CardsLayoutProps {
     question: string,
     answer: string,
     category: string,
-    difficulty_level: string
+    difficulty_level: DifficultyLevelEnum
   ) => void;
   updateFlashCard: (card: FlashCard) => void;
   filterFlashCards: (criteria: FilterCriteria) => void;
@@ -37,7 +38,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   const [editCardData, setEditCardData] = React.useState<FlashCard | null>(null);
   const [editCardPopupVisible, setEditCardPopupVisible] = React.useState<boolean>(false);
   const [FilterBoxVisible, setFilterBoxVisible] = React.useState<boolean>(false);
-
+  
   function handleFilterClick() {
     setFilterBoxVisible(!FilterBoxVisible);
   }
@@ -52,6 +53,9 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     setAnchor(anchor ? null : event.currentTarget);
   };
 
+  const handleFilterChange = (criteria: FilterCriteria) => {
+    filterFlashCards(criteria);
+  };
   const open = Boolean(anchor);
   const id = open ? "simple-popper" : undefined;
 
@@ -96,7 +100,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
 
         {/* Row 2: Filter Box */}
         <Grid item xs={12}>
-          {FilterBoxVisible && <FilterBox filterFlashCards = {filterFlashCards} />}
+          {FilterBoxVisible && <FilterBox filterFlashCards={handleFilterChange} />}
         </Grid>
 
         {/* Row 3: Card Grid Container */}
@@ -104,22 +108,23 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
           <Grid container spacing={4}>
             {cards
               ? cards.map((card) => (
-                  <Grid item key={card.id} xs={12} sm={6} md={4}>
-                    <Card
-                      id={card.id}
-                      question={card.question}
-                      answer={card.answer}
-                      category={card.category}
-                      onDelete={() => deleteFlashCard(card.id)}
-                      onEdit={() => handleEditClick(card.id)}
-                    />
-                  </Grid>
-                ))
+                <Grid item key={card.id} xs={12} sm={6} md={4}>
+                  <Card
+                    id={card.id}
+                    question={card.question}
+                    answer={card.answer}
+                    difficulty={card.difficulty_level}
+                    category={card.category}
+                    onDelete={() => deleteFlashCard(card.id)}
+                    onEdit={() => handleEditClick(card.id)}
+                  />
+                </Grid>
+              ))
               : new Array(9).fill(0).map((_, index) => (
-                  <Grid item key={index} xs={12} sm={6} md={4}>
-                    <CardGhost key={index} />
-                  </Grid>
-                ))}
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <CardGhost key={index} />
+                </Grid>
+              ))}
           </Grid>
         </Grid>
 

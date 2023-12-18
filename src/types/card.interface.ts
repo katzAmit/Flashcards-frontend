@@ -1,9 +1,11 @@
+import { DifficultyLevelEnum } from "../components/Card/types";
+
 export type FlashCard = {
   id: number;
   category: string;
   question: string;
   answer: string;
-  difficulty_level: string;
+  difficulty_level: DifficultyLevelEnum;
 };
 
 export type MarathonType = {

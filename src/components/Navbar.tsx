@@ -59,7 +59,6 @@ function ResponsiveNavBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              fontFamily: "monospace",
             }}
           >
             Flashcards
@@ -93,7 +92,6 @@ function ResponsiveNavBar() {
                   <Typography
                     textAlign="center"
                     sx={{
-                      fontFamily: "monospace",
                       fontSize: "1rem",
                       "&:hover": {
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -134,7 +132,6 @@ function ResponsiveNavBar() {
                   my: 2,
                   color: "white",
                   display: "block",
-                  fontFamily: "monospace",
                   fontSize: "1rem",
                   "&:hover": {
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -152,7 +149,6 @@ function ResponsiveNavBar() {
                 my: 2,
                 color: "white",
                 display: "block",
-                fontFamily: "monospace",
                 fontSize: "1rem",
                 "&:hover": {
                   backgroundColor: "rgba(255, 255, 255, 0.1)",

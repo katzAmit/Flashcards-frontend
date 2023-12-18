@@ -39,6 +39,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
 
   const handleCheckboxChange = (sectionId: string, optionIdx: number) => {
     setFilters((prevFilters) => {
+      debugger;
       const updatedFilters = [...prevFilters];
       const sectionIndex = updatedFilters.findIndex((filter) => filter.id === sectionId);
 
@@ -58,7 +59,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
 
   useEffect(() => {
     const updatedFilterCriteria: FilterCriteria = { "category": [], "difficulty": [] };
-
+    debugger;
     filters.forEach((section) => {
       const checkedOptions = section.options.filter((option) => option.checked).map((option) => option.value);
       if (checkedOptions.length > 0) {
@@ -67,7 +68,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
     });
 
     filterFlashCards(updatedFilterCriteria);
-  }, [filters, filterFlashCards]);
+  }, [filters]);
 
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({
         console.error("Error fetching data", error);
       }
     };
-    
+
 
     fetchCategories();
   }, []);

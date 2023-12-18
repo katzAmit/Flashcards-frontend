@@ -127,7 +127,6 @@ const QuizesLayout = () => {
                     marginBottom: "1rem",
                     fontWeight: "lighter",
                     color: "#333",
-                    fontFamily: "monospace",
                   }}
                 >
                   <div className="font-bold text-xl">
@@ -190,7 +189,6 @@ const QuizesLayout = () => {
                                 fontWeight: "lighter",
 
                                 color: "#333",
-                                fontFamily: "monospace",
                               }}
                             >
                               {category.category}
@@ -219,7 +217,6 @@ const QuizesLayout = () => {
                     sx={{
                       fontWeight: "lighter",
                       color: "#FFFFFF",
-                      fontFamily: "monospace",
                     }}
                   >
                     Generate Tests
@@ -245,7 +242,6 @@ const QuizesLayout = () => {
                         <CardContent>
                           <Typography
                             sx={{
-                              fontFamily: "monospace",
                             }}
                             variant="h6"
                             gutterBottom
@@ -254,7 +250,6 @@ const QuizesLayout = () => {
                           </Typography>
                           <Typography
                             sx={{
-                              fontFamily: "monospace",
                             }}
                             variant="body2"
                           >
@@ -269,7 +264,6 @@ const QuizesLayout = () => {
                           >
                             <Typography
                               sx={{
-                                fontFamily: "monospace",
                               }}
                               variant="body2"
                             >
@@ -316,7 +310,6 @@ const QuizesLayout = () => {
                               position: "absolute",
                               bottom: "8px",
                               right: "8px",
-                              fontFamily: "monospace",
                               fontWeight: "bold",
                               backgroundColor: "#2E3B55",
                               color: "#FFFFFF",
