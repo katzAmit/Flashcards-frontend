@@ -15,7 +15,7 @@ import { DifficultyLevelEnum } from "../../components/Card/types";
 export default function Homepage() {
   const [flashCards, setFlashCards] = useState<FlashCard[]>();
   const [viewedFlashCards, setViewedFlashCards] = useState<FlashCard[]>();
-  
+
   const [isDataFetched, setIsDataFetched] = useState(false);
   const navigate = useNavigate();
 
@@ -24,6 +24,9 @@ export default function Homepage() {
       .delete(`http://localhost:4000/flashcards/${id}`)
       .then(() => {
         setFlashCards((prevCards) =>
+          prevCards?.filter((card) => card.id !== id)
+        );
+        setViewedFlashCards((prevCards) =>
           prevCards?.filter((card) => card.id !== id)
         );
       })
@@ -54,6 +57,12 @@ export default function Homepage() {
           }
           return [...prevCards, newCard];
         });
+        setViewedFlashCards((prevCards) => {
+          if (prevCards === undefined) {
+            return [newCard];
+          }
+          return [...prevCards, newCard];
+        });
         console.log("card added successfully");
       })
       .catch((error) => {
@@ -75,6 +84,11 @@ export default function Homepage() {
           card.id === updatedFlashcard.id ? updatedFlashcard : card
         )
       );
+      setViewedFlashCards((prevCards) =>
+        prevCards?.map((card) =>
+          card.id === updatedFlashcard.id ? updatedFlashcard : card
+        )
+      );
 
       // Handle success, you might want to show a message or perform other actions
     } catch (error) {
@@ -86,16 +100,24 @@ export default function Homepage() {
   const onFilterChanged = useMemo(
     () => (criteria: FilterCriteria) => {
       const filtered = flashCards?.filter((card) => {
-        if (criteria.category?.length && !criteria.category.includes(card.category)) {
+        if (
+          criteria.category?.length &&
+          !criteria.category.includes(card.category)
+        ) {
           return false;
         }
-        if (criteria.difficulty?.length && !criteria.difficulty.includes(card.difficulty_level)) {
+        if (
+          criteria.difficulty?.length &&
+          !criteria.difficulty.includes(card.difficulty_level)
+        ) {
           return false;
         }
         return true;
       });
       setViewedFlashCards(filtered);
-    }, [flashCards])
+    },
+    [flashCards]
+  );
 
   // Initial data fetch
   useEffect(() => {
@@ -113,7 +135,6 @@ export default function Homepage() {
       fetchFlashCards();
     }
   }, [isDataFetched]);
-
 
   return (
     <>
