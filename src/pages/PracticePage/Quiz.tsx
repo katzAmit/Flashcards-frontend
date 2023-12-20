@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Question from "./Question";
-import { RoutesEnum } from "../../../types/routes.enum";
+import { RoutesEnum } from "../../types/routes.enum";
+import axios from "axios";
 
 interface Flashcard {
   question: string;
   answer: string;
+  difficulty_level: string;
 }
 
 interface QuizProps {
@@ -23,10 +25,15 @@ interface QuizProps {
   title: string;
   id: string;
   start_time: Date;
-  onFinish: () => void; // Include onFinish property
+  onFinish: () => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ flashcards, title, onFinish }) => {
+const Quiz: React.FC<QuizProps> = ({
+  flashcards,
+  title,
+  onFinish,
+  start_time,
+}) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const questionCount = flashcards.length;
@@ -41,8 +48,33 @@ const Quiz: React.FC<QuizProps> = ({ flashcards, title, onFinish }) => {
     }
   };
 
-  const handleLastQuestionReached = () => {
-    // Perform necessary actions when reaching the last question
+  const handleLastQuestionReached = async () => {
+    const updatedFlashcards = flashcards.map((flashcard, index) => {
+      if (index === currentCardIndex) {
+        return {
+          ...flashcard,
+          difficulty: flashcard.difficulty_level || "", // Set default value if difficulty not selected
+        };
+      }
+      return flashcard;
+    });
+    const data = {
+      flashcards: updatedFlashcards,
+      start_time: start_time,
+      end_time: new Date(),
+    };
+    try {
+      axios
+        .post(`http://localhost:4000/submit_quiz`, data)
+        .then(() => {})
+        .catch((error) => {
+          console.error("error deleting flashcard", error);
+        });
+      onFinish();
+      navigate(RoutesEnum.PRACTICE);
+    } catch (error) {
+      console.error("Error submitting quiz:", error);
+    }
   };
 
   const handleCancelDialogOpen = () => {

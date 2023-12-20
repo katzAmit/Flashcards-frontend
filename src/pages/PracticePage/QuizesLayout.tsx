@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Quiz from "./Quiz";
-import ResponsiveNavBar from "../../../components/Navbar";
+import ResponsiveNavBar from "../../components/Navbar";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -29,6 +29,7 @@ type Category = {
 interface Flashcard {
   question: string;
   answer: string;
+  difficulty_level: string;
 }
 
 type QuizType = {
@@ -240,19 +241,10 @@ const QuizesLayout = () => {
                         }}
                       >
                         <CardContent>
-                          <Typography
-                            sx={{
-                            }}
-                            variant="h6"
-                            gutterBottom
-                          >
+                          <Typography sx={{}} variant="h6" gutterBottom>
                             {quiz.title}
                           </Typography>
-                          <Typography
-                            sx={{
-                            }}
-                            variant="body2"
-                          >
+                          <Typography sx={{}} variant="body2">
                             Flashcards: {quiz.flashcards.length}
                           </Typography>
                           <div
@@ -262,11 +254,7 @@ const QuizesLayout = () => {
                               marginTop: "0.5rem",
                             }}
                           >
-                            <Typography
-                              sx={{
-                              }}
-                              variant="body2"
-                            >
+                            <Typography sx={{}} variant="body2">
                               Categories: {quiz.categories.join(", ")}
                             </Typography>
                             <div

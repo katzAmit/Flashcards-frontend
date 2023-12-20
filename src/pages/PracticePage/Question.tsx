@@ -31,9 +31,7 @@ const Question: React.FC<QuestionProps> = (props) => {
     setFlip(!flip);
   };
 
-  const handleDifficultyChange = (
-    event: SelectChangeEvent<string>
-  ) => {
+  const handleDifficultyChange = (event: SelectChangeEvent<string>) => {
     setDifficulty(event.target.value);
   };
 
@@ -62,10 +60,17 @@ const Question: React.FC<QuestionProps> = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="sm" className="flex items-center justify-center h-full">
-      <Paper className="w-full p-4 max-h-full overflow-hidden overflow-y-auto" sx={{
-        marginTop: '20px', // Adjust top margin
-      }}>
+    <Container
+      component="main"
+      maxWidth="sm"
+      className="flex items-center justify-center h-full"
+    >
+      <Paper
+        className="w-full p-4 max-h-full overflow-hidden overflow-y-auto"
+        sx={{
+          marginTop: "20px", // Adjust top margin
+        }}
+      >
         <div className="flex justify-between mb-2">
           <Typography variant="h6" className="font-bold text-xl">
             {`${props.question}`}
@@ -94,7 +99,12 @@ const Question: React.FC<QuestionProps> = (props) => {
             <div style={{ visibility: flip ? "hidden" : "visible" }}>
               <Typography variant="body1">Click to reveal answer</Typography>
             </div>
-            <div style={{ visibility: flip ? "visible" : "hidden", transform: "rotateY(180deg)" }}>
+            <div
+              style={{
+                visibility: flip ? "visible" : "hidden",
+                transform: "rotateY(180deg)",
+              }}
+            >
               <Typography variant="body1">{props.answer}</Typography>
             </div>
           </Paper>
@@ -103,7 +113,7 @@ const Question: React.FC<QuestionProps> = (props) => {
           <FormControl fullWidth className="mt-4">
             <InputLabel
               id="difficulty-label"
-              style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}
+              style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}
             >
               How well did you know the answer?
             </InputLabel>
@@ -112,11 +122,11 @@ const Question: React.FC<QuestionProps> = (props) => {
               value={difficulty}
               onChange={handleDifficultyChange}
               variant="outlined"
-              style={{ marginTop: '0.5rem' }}
+              style={{ marginTop: "0.5rem" }}
             >
-              <MenuItem value={'0'}>Not Well</MenuItem>
-              <MenuItem value={'1'}>Need some more practice</MenuItem>
-              <MenuItem value={'2'}>Perfect!</MenuItem>
+              <MenuItem value={"0"}>Not Well</MenuItem>
+              <MenuItem value={"1"}>Need some more practice</MenuItem>
+              <MenuItem value={"2"}>Perfect!</MenuItem>
             </Select>
           </FormControl>
         )}
@@ -129,11 +139,7 @@ const Question: React.FC<QuestionProps> = (props) => {
           >
             Previous
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleNextClick}
-          >
+          <Button variant="contained" color="primary" onClick={handleNextClick}>
             {props.questionNumber === props.totalQuestions ? "Submit" : "Next"}
           </Button>
         </div>
