@@ -2,6 +2,7 @@ import React from "react";
 
 interface MarathonProps {
   id: number;
+  username: string;
   category: string;
   total_days: number;
   current_day: number;
@@ -9,6 +10,7 @@ interface MarathonProps {
 
 export const Marathon: React.FC<MarathonProps> = ({
   id,
+  username,
   category,
   total_days,
   current_day,
