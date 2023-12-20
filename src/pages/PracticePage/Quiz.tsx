@@ -25,7 +25,7 @@ interface QuizProps {
   title: string;
   id: string;
   start_time: Date;
-  onFinish: () => void; // Include onFinish property
+  onFinish: () => void;
 }
 
 const Quiz: React.FC<QuizProps> = ({
@@ -49,7 +49,6 @@ const Quiz: React.FC<QuizProps> = ({
   };
 
   const handleLastQuestionReached = async () => {
-    // Update the flashcards with user-entered difficulty
     const updatedFlashcards = flashcards.map((flashcard, index) => {
       if (index === currentCardIndex) {
         return {
@@ -62,18 +61,18 @@ const Quiz: React.FC<QuizProps> = ({
     const data = {
       flashcards: updatedFlashcards,
       start_time: start_time,
-      end_time: new Date(), // Include the current end_time
+      end_time: new Date(),
     };
-
     try {
-      // Send Axios POST request
-      await axios.post("/submit_quiz", data);
-
-      // Perform actions after successful submission
+      axios
+        .post(`http://localhost:4000/submit_quiz`, data)
+        .then(() => {})
+        .catch((error) => {
+          console.error("error deleting flashcard", error);
+        });
       onFinish();
       navigate(RoutesEnum.PRACTICE);
     } catch (error) {
-      // Handle error
       console.error("Error submitting quiz:", error);
     }
   };
