@@ -8,6 +8,25 @@ import AuthProvider from "./auth/AuthProvider";
 import QuizesLayout from "./pages/PracticePage/QuizesLayout";
 import MarathonPage from "./pages/MarathonPage/MarathonPage";
 import { RoutesEnum } from "./types/routes.enum";
+import Quiz from "./pages/PracticePage/Quiz";
+import Statistics from "./pages/StatisticsPage/StatisticPage";
+import StatisticLayout from "./pages/StatisticsPage/components/StatisticLayout";
+
+const quizData = [
+  {
+    title: "Recommended Quiz 1 - Biology - 10 Questions - Hard",
+    id: "12345-quiz",
+    flashcards: [
+      { question: "What is the capital of France?", answer: "Paris", id: "1" },
+      {
+        question: "Who painted the Mona Lisa?",
+        answer: "Leonardo da Vinci",
+        id: "2",
+      },
+      // Add more flashcards as needed
+    ],
+  },
+];
 
 export default function App() {
   return (
@@ -16,12 +35,14 @@ export default function App() {
         <Routes>
           <Route element={<ProtectedRoutes />}>
             <Route path={RoutesEnum.HOME} element={<Homepage />} />
+            {/* <Route path={RoutesEnum.HOME} element={<Statistics />} /> */}
             <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
           </Route>
           <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
           <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
           <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
+          <Route path={RoutesEnum.STATS} element={<Statistics />} />
         </Routes>
       </Router>
     </AuthProvider>

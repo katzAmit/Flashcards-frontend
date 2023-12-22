@@ -19,6 +19,8 @@ interface QuestionProps {
   totalQuestions: number;
   onNextClick: () => void;
   onPreviousClick: () => void;
+  difficulty: string; // Add this line to include the difficulty prop
+  onDifficultyChange: (newDifficulty: string) => void;
   onLastQuestionReached: () => void; // Define the callback prop
 }
 
@@ -32,6 +34,7 @@ const Question: React.FC<QuestionProps> = (props) => {
   };
 
   const handleDifficultyChange = (event: SelectChangeEvent<string>) => {
+    props.onDifficultyChange(event.target.value);
     setDifficulty(event.target.value);
   };
 
@@ -124,9 +127,9 @@ const Question: React.FC<QuestionProps> = (props) => {
               variant="outlined"
               style={{ marginTop: "0.5rem" }}
             >
-              <MenuItem value={"0"}>Not Well</MenuItem>
-              <MenuItem value={"1"}>Need some more practice</MenuItem>
-              <MenuItem value={"2"}>Perfect!</MenuItem>
+              <MenuItem value={"Hard"}>Not Well</MenuItem>
+              <MenuItem value={"Medium"}>Need some more practice</MenuItem>
+              <MenuItem value={"Easy"}>Perfect!</MenuItem>
             </Select>
           </FormControl>
         )}

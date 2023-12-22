@@ -9,9 +9,8 @@ export type FlashCard = {
 };
 
 export type MarathonType = {
-  id: number;
-  username: string;
-  category: string;
+  marathon_id: string,
+  category: string
   total_days: number;
   current_day: number;
 };

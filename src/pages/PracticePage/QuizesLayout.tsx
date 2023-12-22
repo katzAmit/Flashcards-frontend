@@ -21,6 +21,8 @@ import Quiz from "./Quiz";
 import ResponsiveNavBar from "../../components/Navbar";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { RoutesEnum } from "../../types/routes.enum";
+import { useNavigate } from "react-router-dom";
 
 type Category = {
   category: string;
@@ -46,13 +48,14 @@ const QuizesLayout = () => {
   const [selectedQuiz, setSelectedQuiz] = useState<number | null>(null);
   const [quizzes, setQuizzes] = useState<QuizType[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchCategories();
   }, []);
 
   const handleFinishQuiz = () => {
     setSelectedQuiz(null);
+    navigate(RoutesEnum.PRACTICE);
   };
 
   const fetchCategories = async () => {
