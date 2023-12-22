@@ -50,8 +50,17 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
         category: selectedCategory,
         total_days: selectedDays,
       });
-
-      const newMarathon = response.data;
+      if (!selectedCategory || !selectedDays) {
+        console.error("BAD BAD BAD");
+        return;
+      }
+      const marathon_id = response.data;
+      const newMarathon: MarathonType = {
+        marathon_id: marathon_id,
+        category: selectedCategory,
+        total_days: selectedDays,
+        current_day: 0,
+      };
 
       setMarathons((prevMarathons) => {
         if (!prevMarathons) {
@@ -61,6 +70,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
       });
 
       console.log("Marathon added successfully");
+      await fetchMarathons();
     } catch (error) {
       console.error("Error adding marathon", error);
     }
@@ -74,9 +84,8 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
           {marathons ? (
             marathons.map((marathon: MarathonType) => (
               <Marathon
-                key={marathon.id}
-                id={marathon.id}
-                username={marathon.username}
+                key={marathon.marathon_id}
+                marathon_id={marathon.marathon_id}
                 category={marathon.category}
                 total_days={marathon.total_days}
                 current_day={marathon.current_day}
@@ -129,7 +138,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
               onClick={() => createMarathon(selectedCategory, selectedDays)}
               disabled={!selectedCategory || !selectedDays}
             >
-              Start Marathon
+              Create Marathon
             </button>
           </div>
         </div>
