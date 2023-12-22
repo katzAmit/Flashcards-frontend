@@ -37,7 +37,6 @@ export default function App() {
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
             {/* <Route path={RoutesEnum.HOME} element={<Statistics />} /> */}
             <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
-            {/* <Route path={RoutesEnum.PRACTICE} element={<Quiz start_time = {new Date()} id={quizData[0].id} title={quizData[0].title} flashcards={quizData[0].flashcards} />} /> */}
           </Route>
           <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
@@ -47,6 +46,5 @@ export default function App() {
         </Routes>
       </Router>
     </AuthProvider>
-    // <SignIn />
   );
 }

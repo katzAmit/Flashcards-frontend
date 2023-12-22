@@ -11,9 +11,8 @@ type Category = {
   category: string;
 };
 
-const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({
-  marathons,
-}) => {
+const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
+  const [marathons, setMarathons] = useState<MarathonType[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedDays, setSelectedDays] = useState<number | undefined>(
@@ -22,8 +21,17 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({
 
   useEffect(() => {
     fetchCategories();
+    fetchMarathons();
   }, []);
 
+  const fetchMarathons = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4000/marathon`);
+      setMarathons(res.data);
+    } catch (error) {
+      console.error("error fetching marathons", error);
+    }
+  };
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:4000/categories");
@@ -33,11 +41,29 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({
     }
   };
 
-  const createMarathon = () => {
-    // You can implement the logic to create a marathon with the selected category and days
-    // For now, let's just log the selected values
-    console.log("Selected Category:", selectedCategory);
-    console.log("Selected Days:", selectedDays);
+  const createMarathon = async (
+    selectedCategory: string | undefined,
+    selectedDays: number | undefined
+  ) => {
+    try {
+      const response = await axios.post("http://localhost:4000/marathon", {
+        category: selectedCategory,
+        total_days: selectedDays,
+      });
+
+      const newMarathon = response.data;
+
+      setMarathons((prevMarathons) => {
+        if (!prevMarathons) {
+          return [newMarathon];
+        }
+        return [...prevMarathons, newMarathon];
+      });
+
+      console.log("Marathon added successfully");
+    } catch (error) {
+      console.error("Error adding marathon", error);
+    }
   };
 
   return (
@@ -45,8 +71,20 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({
       <div className="current-marathons-layout flex flex-col mt-3 mx-auto max-w-md">
         <p className="mb-1 font-bold text-lg">Active Marathons</p>
         <div className="flex flex-col gap-1 items-center mb-8 justify-between border-1 border-indigo-500/50 rounded-3xl inline-block p-3">
-          <Marathon id={1} category="Biology" total_days={6} current_day={3} />
-          <Marathon id={2} category="Math" total_days={4} current_day={1} />
+          {marathons ? (
+            marathons.map((marathon: MarathonType) => (
+              <Marathon
+                key={marathon.id}
+                id={marathon.id}
+                username={marathon.username}
+                category={marathon.category}
+                total_days={marathon.total_days}
+                current_day={marathon.current_day}
+              />
+            ))
+          ) : (
+            <p>None</p>
+          )}
         </div>
       </div>
       <div className="existing-marathons-layout flex flex-col mt-3 mx-auto max-w-md">
@@ -88,7 +126,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({
           <div className="flex justify-center">
             <button
               className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-              onClick={createMarathon}
+              onClick={() => createMarathon(selectedCategory, selectedDays)}
               disabled={!selectedCategory || !selectedDays}
             >
               Start Marathon
