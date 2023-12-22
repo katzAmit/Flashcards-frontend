@@ -34,7 +34,7 @@ export default function App() {
       <Router>
         <Routes>
           <Route element={<ProtectedRoutes />}>
-          <Route path={RoutesEnum.HOME} element={<Homepage />} />
+            <Route path={RoutesEnum.HOME} element={<Homepage />} />
             {/* <Route path={RoutesEnum.HOME} element={<Statistics />} /> */}
             <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
           </Route>
