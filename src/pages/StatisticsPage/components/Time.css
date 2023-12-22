@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+.costume-font {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 500%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
+  min-height: 50vh;
+}

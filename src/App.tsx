@@ -9,6 +9,8 @@ import QuizesLayout from "./pages/PracticePage/QuizesLayout";
 import MarathonPage from "./pages/MarathonPage/MarathonPage";
 import { RoutesEnum } from "./types/routes.enum";
 import Quiz from "./pages/PracticePage/Quiz";
+import Statistics from "./pages/StatisticsPage/StatisticPage";
+import StatisticLayout from "./pages/StatisticsPage/components/StatisticLayout";
 
 const quizData = [
   {
@@ -32,7 +34,8 @@ export default function App() {
       <Router>
         <Routes>
           <Route element={<ProtectedRoutes />}>
-            <Route path={RoutesEnum.HOME} element={<Homepage />} />
+          <Route path={RoutesEnum.HOME} element={<Homepage />} />
+            {/* <Route path={RoutesEnum.HOME} element={<Statistics />} /> */}
             <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
             {/* <Route path={RoutesEnum.PRACTICE} element={<Quiz start_time = {new Date()} id={quizData[0].id} title={quizData[0].title} flashcards={quizData[0].flashcards} />} /> */}
           </Route>
@@ -40,6 +43,7 @@ export default function App() {
           <Route path={RoutesEnum.HOME} element={<Homepage />} />
           <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
           <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
+          <Route path={RoutesEnum.STATS} element={<Statistics />} />
         </Routes>
       </Router>
     </AuthProvider>
