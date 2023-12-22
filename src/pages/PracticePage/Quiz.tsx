@@ -34,6 +34,7 @@ const Quiz: React.FC<QuizProps> = ({
   onFinish,
   start_time,
 }) => {
+  const [flashcardsState, setFlashcards] = useState(flashcards);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const questionCount = flashcards.length;
@@ -48,18 +49,23 @@ const Quiz: React.FC<QuizProps> = ({
     }
   };
 
-  const handleLastQuestionReached = async () => {
-    const updatedFlashcards = flashcards.map((flashcard, index) => {
+  const handleDifficultyChange = (newDifficulty: string) => {
+    const updatedFlashcards = flashcardsState.map((flashcard, index) => {
       if (index === currentCardIndex) {
         return {
           ...flashcard,
-          difficulty: flashcard.difficulty_level || "", // Set default value if difficulty not selected
+          difficulty_level: newDifficulty,
         };
       }
       return flashcard;
     });
+
+    setFlashcards(updatedFlashcards);
+  };
+
+  const handleLastQuestionReached = async () => {
     const data = {
-      flashcards: updatedFlashcards,
+      flashcards: flashcardsState,
       start_time: start_time,
       end_time: new Date(),
     };
@@ -152,6 +158,8 @@ const Quiz: React.FC<QuizProps> = ({
               onNextClick={goToNextCard}
               onPreviousClick={goToPreviousCard}
               onLastQuestionReached={handleLastQuestionReached}
+              difficulty={flashcardsState[currentCardIndex].difficulty_level}
+              onDifficultyChange={handleDifficultyChange}
             />
           </div>
         )}
