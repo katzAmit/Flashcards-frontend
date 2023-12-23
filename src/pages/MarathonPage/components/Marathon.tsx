@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RoutesEnum } from "../../../types/routes.enum";
 import Quiz from "../../PracticePage/Quiz";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button } from "@mui/material";
 
 interface MarathonProps {
   marathon_id: string;
@@ -40,12 +41,10 @@ export const Marathon: React.FC<MarathonProps> = ({
     return (
       <Quiz
         flashcards={currentQuiz.flashcards}
-        title={currentQuiz.title}
+        title={`Quiz ${current_day + 1}`}
         id={currentQuiz.id}
         start_time={currentQuiz.start_time}
         onFinish={() => {
-          // Finish action when the Quiz component is completed
-          // Example: navigate to the next route after finishing the quiz
           navigate(RoutesEnum.MARATHON);
         }}
       />
@@ -53,14 +52,51 @@ export const Marathon: React.FC<MarathonProps> = ({
   }
 
   return (
-    <div className="marathon-line flex items-center bg-white p-2 mb-2 mx-auto max-w-md rounded-lg shadow-md w-full">
-      <p className="marathon-category flex-grow text-sm font-semibold mr-4">
-        {category}
-      </p>
-      <p className="marathon-progress text-gray-600">
-        📅{current_day}/{total_days}
-      </p>
-      <button onClick={handleContinueMarathon}>Continue Marathon</button>
-    </div>
+    <main style={{ marginTop: "40px" }}>
+      <div
+        style={{
+          backgroundColor: "#2E3B55",
+          color: "#FFFFFF",
+          padding: "2rem",
+          borderRadius: "15px",
+          boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.1)",
+          textAlign: "start",
+          marginTop: "20px",
+          position: "relative",
+        }}
+      >
+        <h5
+          style={{
+            color: "white",
+            marginBottom: "1.5rem",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+          }}
+        >
+          {`${category} Marathon`}
+        </h5>
+        <p style={{ color: "white" }}>
+          📅 {`Day ${current_day + 1} out of ${total_days}`}
+        </p>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleContinueMarathon()}
+          sx={{
+            position: "absolute",
+            bottom: "8px",
+            right: "8px",
+            fontWeight: "bold",
+            backgroundColor: "#2E3B55",
+            color: "#FFFFFF",
+            "&:hover": {
+              backgroundColor: "#1c2733",
+            },
+          }}
+        >
+          Continue Marathon
+        </Button>
+      </div>
+    </main>
   );
 };

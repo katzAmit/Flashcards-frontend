@@ -77,7 +77,6 @@ const Quiz: React.FC<QuizProps> = ({
           console.error("error deleting flashcard", error);
         });
       onFinish();
-      navigate(RoutesEnum.PRACTICE);
     } catch (error) {
       console.error("Error submitting quiz:", error);
     }
@@ -94,7 +93,6 @@ const Quiz: React.FC<QuizProps> = ({
   const handleCancelAndNavigate = () => {
     handleCancelDialogClose();
     onFinish();
-    navigate(RoutesEnum.PRACTICE);
   };
 
   return (
