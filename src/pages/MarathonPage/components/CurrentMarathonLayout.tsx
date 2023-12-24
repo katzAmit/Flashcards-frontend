@@ -148,7 +148,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
           )}
         </Grid>
 
-        <Grid className="mb-2" item xs={12}>
+        <Grid item xs={12}>
           {marathons.length > 0 ? (
             marathons.map((marathon: MarathonType) => (
               <Marathon

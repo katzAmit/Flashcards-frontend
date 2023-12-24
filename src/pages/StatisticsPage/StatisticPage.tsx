@@ -50,7 +50,6 @@ export default function Statistics() {
           stat5={stat5}
         />
       </main>
-      <Footer />
     </>
   );
 }

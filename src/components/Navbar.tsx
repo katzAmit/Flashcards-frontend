@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../types/routes.enum";
-const pages = ["Home", "Practice", "Statistics", "Marathon"];
+const pages = ["Home", "Practice", "Marathon", "Statistics"];
 
 function ResponsiveNavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);

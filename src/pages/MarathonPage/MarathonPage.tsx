@@ -10,7 +10,6 @@ export default function MarathonPage() {
       <main>
         <CurrentMarathonsLayout />
       </main>
-      <Footer />
     </>
   );
 }

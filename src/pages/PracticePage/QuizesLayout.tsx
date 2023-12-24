@@ -54,8 +54,13 @@ const QuizesLayout = () => {
   }, []);
 
   const handleFinishQuiz = () => {
-    setSelectedQuiz(null);
-    navigate(RoutesEnum.PRACTICE);
+    if (selectedQuiz !== null) {
+      const updatedQuizzes = [...quizzes];
+      updatedQuizzes.splice(selectedQuiz, 1); // Remove the submitted quiz from the list
+      setQuizzes(updatedQuizzes); // Update the quizzes state without the submitted quiz
+      setSelectedQuiz(null);
+      navigate(RoutesEnum.PRACTICE);
+    }
   };
 
   const fetchCategories = async () => {
