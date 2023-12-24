@@ -47,6 +47,8 @@ export const Marathon: React.FC<MarathonProps> = ({
         onFinish={() => {
           navigate(RoutesEnum.MARATHON);
         }}
+        marathon_or_practice="marathon"
+        marathon_id={marathon_id}
       />
     );
   }
