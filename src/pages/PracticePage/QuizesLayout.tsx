@@ -325,10 +325,9 @@ const QuizesLayout = () => {
                 id={quizzes[selectedQuiz].id}
                 title={quizzes[selectedQuiz].title}
                 flashcards={quizzes[selectedQuiz].flashcards}
-                onFinish={
-                  handleFinishQuiz
-                  // Define your onFinish function here
-                }
+                onFinish={handleFinishQuiz}
+                marathon_or_practice="practice"
+                marathon_id={`0`}
               />
             </Grid>
           )}
