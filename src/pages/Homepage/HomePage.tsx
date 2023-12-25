@@ -39,13 +39,15 @@ export default function Homepage() {
     question: string,
     answer: string,
     category: string,
-    difficulty_level: DifficultyLevelEnum
+    difficulty_level: DifficultyLevelEnum,
+    isAuto: number
   ) => {
     const flashcardData = {
       question: question,
       answer: answer,
       category: category,
       difficulty_level: difficulty_level,
+      isAuto: isAuto,
     };
     axios
       .post(`http://localhost:4000/flashcards`, flashcardData)

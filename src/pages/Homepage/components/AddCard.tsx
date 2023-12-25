@@ -1,5 +1,24 @@
-import { Grid, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem, InputLabel, FormControl, Select, Typography, Container, SelectChangeEvent } from "@mui/material";
 import React, { useState } from "react";
+import {
+  Box,
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Select,
+  Typography,
+  Container,
+  SelectChangeEvent,
+  Checkbox,
+  FormControlLabel,
+  Tooltip,
+} from "@mui/material";
 
 export default function AddCard(props: any) {
   const [difficulty, setDifficulty] = useState("");
@@ -7,10 +26,15 @@ export default function AddCard(props: any) {
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
   const [errorFields, setErrorFields] = useState<string[]>([]);
+  const [autoPressed, setAutoPressed] = useState(1); // Set to true to have it checked by default
   const [open, setOpen] = useState(false);
 
   const handleDifficultyChange = (event: SelectChangeEvent<string>) => {
     setDifficulty(event.target.value);
+  };
+
+  const handleAutoToggle = () => {
+    setAutoPressed(1 - autoPressed);
   };
 
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,12 +61,12 @@ export default function AddCard(props: any) {
     if (errors.length > 0) return;
 
     props.setAnchor(null);
-    props.addFlashCard(question, answer, category, difficulty);
-    // Optionally, you can clear the form fields here
+    props.addFlashCard(question, answer, category, difficulty, autoPressed);
     setQuestion("");
     setAnswer("");
     setCategory("");
     setDifficulty("");
+    setAutoPressed(1);
     setOpen(false);
   };
 
@@ -50,11 +74,17 @@ export default function AddCard(props: any) {
 
   return (
     <Dialog open={props.anchor !== null} onClose={() => props.setAnchor(null)}>
-      
       <DialogContent>
         <Container component="main" maxWidth="sm">
-          <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography variant="h4" fontWeight="bold" style={{ marginBottom: "1.5rem" }}>Add Card</Typography>
+          <Box
+            marginTop="2rem"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <Typography variant="h4" fontWeight="bold" marginBottom="1.5rem">
+              Add Card
+            </Typography>
             <form noValidate style={{ width: "100%" }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -71,7 +101,9 @@ export default function AddCard(props: any) {
                     value={question}
                     onChange={handleQuestionChange}
                     error={isErrorField("Question")}
-                    helperText={isErrorField("Question") ? "Please enter a question" : ""}
+                    helperText={
+                      isErrorField("Question") ? "Please enter a question" : ""
+                    }
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -89,25 +121,29 @@ export default function AddCard(props: any) {
                     value={answer}
                     onChange={handleAnswerChange}
                     error={isErrorField("Answer")}
-                    helperText={isErrorField("Answer") ? "Please enter an answer" : ""}
+                    helperText={
+                      isErrorField("Answer") ? "Please enter an answer" : ""
+                    }
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Difficulty Level</InputLabel>
+                    <InputLabel id="difficulty-label">
+                      Difficulty Level
+                    </InputLabel>
                     <Select
-  labelId="demo-simple-select-label"
-  id="demo-simple-select"
-  value={difficulty}
-  onChange={handleDifficultyChange} // Include this line to handle difficulty changes
-  label="Difficulty Level"
-  variant="outlined"
-  error={isErrorField("Difficulty")}
->
-  <MenuItem value={"Easy"}>Easy</MenuItem>
-  <MenuItem value={"Medium"}>Medium</MenuItem>
-  <MenuItem value={"Hard"}>Hard</MenuItem>
-</Select>
+                      labelId="difficulty-label"
+                      id="difficulty"
+                      value={difficulty}
+                      onChange={handleDifficultyChange}
+                      label="Difficulty Level"
+                      variant="outlined"
+                      error={isErrorField("Difficulty")}
+                    >
+                      <MenuItem value={"Easy"}>Easy</MenuItem>
+                      <MenuItem value={"Medium"}>Medium</MenuItem>
+                      <MenuItem value={"Hard"}>Hard</MenuItem>
+                    </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -122,17 +158,71 @@ export default function AddCard(props: any) {
                     value={category}
                     onChange={handleCategoryChange}
                     error={isErrorField("Category")}
-                    helperText={isErrorField("Category") ? "Please enter a category" : ""}
+                    helperText={
+                      isErrorField("Category") ? "Please enter a category" : ""
+                    }
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <Tooltip
+                    title="If you turn off this option, we won't adjust your difficulty based on your progress anymore."
+                    placement="top"
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={autoPressed === 1 ? true : false}
+                          onChange={handleAutoToggle}
+                          icon={
+                            <span
+                              style={{
+                                borderRadius: "50%",
+                                width: 18,
+                                height: 18,
+                                backgroundColor: "#fff",
+                                border: "1px solid #000",
+                                boxSizing: "border-box",
+                                position: "relative", // Add this line
+                              }}
+                            />
+                          }
+                          checkedIcon={
+                            <span
+                              style={{
+                                borderRadius: "50%",
+                                width: 18,
+                                height: 18,
+                                backgroundColor: "#000",
+                                border: "1px solid #000",
+                                boxShadow: "inset 0 0 0 2px #fff",
+                                boxSizing: "border-box",
+                                position: "relative", // Add this line
+                              }}
+                            />
+                          }
+                        />
+                      }
+                      label="Automatically adjust card difficulty based on my progress"
+                      labelPlacement="end"
+                    />
+                  </Tooltip>
                 </Grid>
               </Grid>
             </form>
-          </div>
+          </Box>
         </Container>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" onClick={handleAddClick}>Add Card</Button>
-        <Button variant="contained" color="primary" onClick={() => props.setAnchor(null)}>Cancel</Button>
+        <Button variant="contained" color="primary" onClick={handleAddClick}>
+          Add Card
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => props.setAnchor(null)}
+        >
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   );

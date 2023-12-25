@@ -6,11 +6,12 @@ export type FlashCard = {
   question: string;
   answer: string;
   difficulty_level: DifficultyLevelEnum;
+  isAuto: number;
 };
 
 export type MarathonType = {
-  marathon_id: string,
-  category: string
+  marathon_id: string;
+  category: string;
   total_days: number;
   current_day: number;
 };
