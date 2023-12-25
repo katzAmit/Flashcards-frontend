@@ -11,12 +11,18 @@ import MenuItem from "@mui/material/MenuItem";
 import StyleIcon from "@mui/icons-material/Style";
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { RoutesEnum } from "../types/routes.enum";
 const pages = ["Home", "Practice", "Marathon", "Statistics"];
-
+const navto: Record<string, RoutesEnum> = {
+  Home: RoutesEnum.HOME,
+  Practice: RoutesEnum.PRACTICE,
+  Statistics: RoutesEnum.STATS,
+  Marathon: RoutesEnum.MARATHON,
+};
 function ResponsiveNavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const location = useLocation();
   const { setToken } = useAuth();
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event);
@@ -31,12 +37,6 @@ function ResponsiveNavBar() {
     navigate(RoutesEnum.LOGIN);
   };
   const handleNav = (page: string) => {
-    const navto: Record<string, RoutesEnum> = {
-      Home: RoutesEnum.HOME,
-      Practice: RoutesEnum.PRACTICE,
-      Statistics: RoutesEnum.STATS,
-      Marathon: RoutesEnum.MARATHON,
-    };
     console.log(`about to navigate to ${navto}`);
     navigate(navto[page]);
   };
@@ -94,7 +94,7 @@ function ResponsiveNavBar() {
                     sx={{
                       fontSize: "1rem",
                       "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        backgroundColor: "rgba(102, 68, 166, 0.1)",
                       },
                     }}
                   >
@@ -130,11 +130,24 @@ function ResponsiveNavBar() {
                 key={page}
                 sx={{
                   my: 2,
-                  color: "white",
+                  color:
+                    location.pathname === navto[page]
+                      ? "rgba(255, 255, 255, 0.2)"
+                      : "white",
                   display: "block",
                   fontSize: "1rem",
+                  padding: "10px", // Add padding for better visual appearance
+                  borderRadius: "8px", // Add rounded corners
+                  backgroundColor:
+                    location.pathname === navto[page]
+                      ? "rgba(255, 255, 255, 0.2)" // Background color for active tab
+                      : "transparent", // Background color for inactive tabs
+                  transition: "background-color 0.3s", // Smooth transition on hover
                   "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    backgroundColor:
+                      location.pathname === navto[page]
+                        ? "rgba(255, 255, 255, 0.2)" // Hover effect for active tab
+                        : "rgba(255, 255, 255, 0.1)", // Hover effect for inactive tabs
                   },
                 }}
               >
