@@ -43,6 +43,7 @@ export default function App() {
           <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
           <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
           <Route path={RoutesEnum.STATS} element={<Statistics />} />
+          <Route path={RoutesEnum.HOME} element={<Homepage />} />
         </Routes>
       </Router>
     </AuthProvider>

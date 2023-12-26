@@ -21,7 +21,8 @@ interface CardsLayoutProps {
     question: string,
     answer: string,
     category: string,
-    difficulty_level: DifficultyLevelEnum
+    difficulty_level: DifficultyLevelEnum,
+    isAuto: number
   ) => void;
   updateFlashCard: (card: FlashCard) => void;
   filterFlashCards: (criteria: FilterCriteria) => void;
@@ -35,10 +36,14 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   filterFlashCards,
 }) => {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
-  const [editCardData, setEditCardData] = React.useState<FlashCard | null>(null);
-  const [editCardPopupVisible, setEditCardPopupVisible] = React.useState<boolean>(false);
-  const [FilterBoxVisible, setFilterBoxVisible] = React.useState<boolean>(false);
-  
+  const [editCardData, setEditCardData] = React.useState<FlashCard | null>(
+    null
+  );
+  const [editCardPopupVisible, setEditCardPopupVisible] =
+    React.useState<boolean>(false);
+  const [FilterBoxVisible, setFilterBoxVisible] =
+    React.useState<boolean>(false);
+
   function handleFilterClick() {
     setFilterBoxVisible(!FilterBoxVisible);
   }
@@ -60,7 +65,11 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   const id = open ? "simple-popper" : undefined;
 
   return (
-    <Container className={`cardsLayout ${open ? "blurred" : ""}`} sx={{ py: 8 }} maxWidth="lg">
+    <Container
+      className={`cardsLayout ${open ? "blurred" : ""}`}
+      sx={{ py: 8 }}
+      maxWidth="lg"
+    >
       <Grid container spacing={2}>
         {/* Row 1: Action buttons */}
         <Grid item xs={12}>
@@ -100,7 +109,9 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
 
         {/* Row 2: Filter Box */}
         <Grid item xs={12}>
-          {FilterBoxVisible && <FilterBox filterFlashCards={handleFilterChange} />}
+          {FilterBoxVisible && (
+            <FilterBox filterFlashCards={handleFilterChange} />
+          )}
         </Grid>
 
         {/* Row 3: Card Grid Container */}
@@ -108,23 +119,24 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
           <Grid container spacing={4}>
             {cards
               ? cards.map((card) => (
-                <Grid item key={card.id} xs={12} sm={6} md={4}>
-                  <Card
-                    id={card.id}
-                    question={card.question}
-                    answer={card.answer}
-                    difficulty={card.difficulty_level}
-                    category={card.category}
-                    onDelete={() => deleteFlashCard(card.id)}
-                    onEdit={() => handleEditClick(card.id)}
-                  />
-                </Grid>
-              ))
+                  <Grid item key={card.id} xs={12} sm={6} md={4}>
+                    <Card
+                      id={card.id}
+                      question={card.question}
+                      answer={card.answer}
+                      difficulty={card.difficulty_level}
+                      category={card.category}
+                      isAuto={card.isAuto}
+                      onDelete={() => deleteFlashCard(card.id)}
+                      onEdit={() => handleEditClick(card.id)}
+                    />
+                  </Grid>
+                ))
               : new Array(9).fill(0).map((_, index) => (
-                <Grid item key={index} xs={12} sm={6} md={4}>
-                  <CardGhost key={index} />
-                </Grid>
-              ))}
+                  <Grid item key={index} xs={12} sm={6} md={4}>
+                    <CardGhost key={index} />
+                  </Grid>
+                ))}
           </Grid>
         </Grid>
 

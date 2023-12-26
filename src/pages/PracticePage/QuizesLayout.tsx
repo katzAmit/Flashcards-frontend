@@ -54,8 +54,13 @@ const QuizesLayout = () => {
   }, []);
 
   const handleFinishQuiz = () => {
-    setSelectedQuiz(null);
-    navigate(RoutesEnum.PRACTICE);
+    if (selectedQuiz !== null) {
+      const updatedQuizzes = [...quizzes];
+      updatedQuizzes.splice(selectedQuiz, 1); // Remove the submitted quiz from the list
+      setQuizzes(updatedQuizzes); // Update the quizzes state without the submitted quiz
+      setSelectedQuiz(null);
+      navigate(RoutesEnum.PRACTICE);
+    }
   };
 
   const fetchCategories = async () => {
@@ -325,10 +330,9 @@ const QuizesLayout = () => {
                 id={quizzes[selectedQuiz].id}
                 title={quizzes[selectedQuiz].title}
                 flashcards={quizzes[selectedQuiz].flashcards}
-                onFinish={
-                  handleFinishQuiz
-                  // Define your onFinish function here
-                }
+                onFinish={handleFinishQuiz}
+                marathon_or_practice="practice"
+                marathon_id={`0`}
               />
             </Grid>
           )}

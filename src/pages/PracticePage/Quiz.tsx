@@ -26,13 +26,18 @@ interface QuizProps {
   id: string;
   start_time: Date;
   onFinish: () => void;
+  marathon_or_practice: string;
+  marathon_id: string;
 }
 
 const Quiz: React.FC<QuizProps> = ({
   flashcards,
+  id,
   title,
   onFinish,
   start_time,
+  marathon_or_practice,
+  marathon_id,
 }) => {
   const [flashcardsState, setFlashcards] = useState(flashcards);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -64,11 +69,24 @@ const Quiz: React.FC<QuizProps> = ({
   };
 
   const handleLastQuestionReached = async () => {
-    const data = {
-      flashcards: flashcardsState,
-      start_time: start_time,
-      end_time: new Date(),
-    };
+    let data;
+    marathon_or_practice === "practice"
+      ? (data = {
+          quiz_id: id,
+          flashcards: flashcardsState,
+          start_time: start_time,
+          end_time: new Date(),
+          marathon_or_practice: "practice",
+          marathon_id: marathon_id,
+        })
+      : (data = {
+          quiz_id: id,
+          flashcards: flashcardsState,
+          start_time: start_time,
+          end_time: new Date(),
+          marathon_or_practice: "marathon",
+          marathon_id: marathon_id,
+        });
     try {
       axios
         .post(`http://localhost:4000/submit_quiz`, data)

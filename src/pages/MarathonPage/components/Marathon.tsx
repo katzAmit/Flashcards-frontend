@@ -19,7 +19,8 @@ export const Marathon: React.FC<MarathonProps> = ({
   current_day,
 }) => {
   const navigate = useNavigate();
-  const [currentQuiz, setCurrentQuiz] = useState<any>(null); // Store the current quiz data
+  const [currentQuiz, setCurrentQuiz] = useState<any>(null);
+  const [isQuizDone, setIsQuizDone] = useState<boolean>(false);
 
   const handleContinueMarathon = async () => {
     try {
@@ -30,11 +31,20 @@ export const Marathon: React.FC<MarathonProps> = ({
         }
       );
       const currentQuizData = response.data;
-      setCurrentQuiz(currentQuizData);
+      if (currentQuizData && currentQuizData.did_quiz === 0) {
+        setCurrentQuiz(currentQuizData);
+      } else {
+        setIsQuizDone(true);
+      }
     } catch (error) {
       console.error("Error fetching current quiz:", error);
     }
   };
+
+  useEffect(() => {
+    // You can reset the state when the component mounts or when the current_day changes
+    setIsQuizDone(false);
+  }, [current_day]);
 
   // If currentQuiz data is available, render the Quiz component
   if (currentQuiz) {
@@ -47,6 +57,8 @@ export const Marathon: React.FC<MarathonProps> = ({
         onFinish={() => {
           navigate(RoutesEnum.MARATHON);
         }}
+        marathon_or_practice="marathon"
+        marathon_id={marathon_id}
       />
     );
   }
@@ -78,9 +90,14 @@ export const Marathon: React.FC<MarathonProps> = ({
         <p style={{ color: "white" }}>
           📅 {`Day ${current_day + 1} out of ${total_days}`}
         </p>
+        {isQuizDone ? (
+          <div style={{ color: "red", marginBottom: "1rem" }}>
+            All done for today, come back tomorrow
+          </div>
+        ) : null}
         <Button
           variant="outlined"
-          color="primary"
+          color={isQuizDone ? "error" : "primary"}
           onClick={() => handleContinueMarathon()}
           sx={{
             position: "absolute",

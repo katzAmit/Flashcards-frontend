@@ -19,9 +19,9 @@ interface QuestionProps {
   totalQuestions: number;
   onNextClick: () => void;
   onPreviousClick: () => void;
-  difficulty: string; // Add this line to include the difficulty prop
+  difficulty: string;
   onDifficultyChange: (newDifficulty: string) => void;
-  onLastQuestionReached: () => void; // Define the callback prop
+  onLastQuestionReached: () => void;
 }
 
 const Question: React.FC<QuestionProps> = (props) => {
@@ -51,15 +51,25 @@ const Question: React.FC<QuestionProps> = (props) => {
 
   useEffect(() => {
     resetFlip();
-    setDifficulty(""); // Reset the difficulty state to an empty string
+    // Do not reset the difficulty state here, so the user has to actively change it
   }, [props.question]);
 
   const handleNextClick = () => {
+    // Check if the user has selected a difficulty before allowing "Next" or "Submit"
+    if (!difficulty) {
+      // Optionally, you can display an alert or message here
+      console.log(
+        "Please select a difficulty before moving to the next question."
+      );
+      return;
+    }
+
     if (props.questionNumber === props.totalQuestions) {
-      props.onLastQuestionReached(); // Call the callback when the last question is reached
+      props.onLastQuestionReached();
     } else {
       props.onNextClick();
     }
+    setDifficulty("");
   };
 
   return (
@@ -71,7 +81,7 @@ const Question: React.FC<QuestionProps> = (props) => {
       <Paper
         className="w-full p-4 max-h-full overflow-hidden overflow-y-auto"
         sx={{
-          marginTop: "20px", // Adjust top margin
+          marginTop: "20px",
         }}
       >
         <div className="flex justify-between mb-2">
@@ -142,7 +152,12 @@ const Question: React.FC<QuestionProps> = (props) => {
           >
             Previous
           </Button>
-          <Button variant="contained" color="primary" onClick={handleNextClick}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNextClick}
+            disabled={!difficulty}
+          >
             {props.questionNumber === props.totalQuestions ? "Submit" : "Next"}
           </Button>
         </div>
