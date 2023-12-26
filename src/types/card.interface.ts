@@ -6,7 +6,7 @@ export type FlashCard = {
   question: string;
   answer: string;
   difficulty_level: DifficultyLevelEnum;
-  isAuto: number;
+  is_auto: number;
 };
 
 export type MarathonType = {

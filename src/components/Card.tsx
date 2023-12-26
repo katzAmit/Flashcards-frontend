@@ -9,7 +9,7 @@ interface CardProps {
   answer: string;
   category: string;
   difficulty: DifficultyLevelEnum;
-  isAuto: number;
+  is_auto: number;
   onDelete: (id: number) => void;
   onEdit: (id: number) => void;
 }
@@ -20,7 +20,7 @@ export const Card: React.FC<CardProps> = ({
   answer,
   category,
   difficulty,
-  isAuto,
+  is_auto,
   onDelete,
   onEdit,
 }) => {
