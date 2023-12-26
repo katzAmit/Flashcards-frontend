@@ -20,11 +20,10 @@ export default function Statistics() {
   // ];
 
   // const stat3 = [
-  //   { x: 1, y: 120 },
+  //   { x: 6, y: 120 },
   //   { x: 2, y: 150 },
   //   { x: 3, y: 75 },
   // ];
-
 
   const fetchStats = async () => {
     try {
@@ -34,7 +33,6 @@ export default function Statistics() {
       setStat3(res.data[2]);
       setStat4(res.data[3]);
       setStat5(res.data[4]);
-      
     } catch (error) {
       console.error("error fetching data", error);
     }
