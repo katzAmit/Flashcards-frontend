@@ -21,7 +21,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
   const navigate = useNavigate();
   const [marathons, setMarathons] = useState<MarathonType[]>([]);
   const [categories, setCategories] = useState<
-    { username: string; category: string }[]
+    { username: string; category: string; flashcardCount: number }[]
   >([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedDays, setSelectedDays] = useState<number | undefined>(
@@ -32,12 +32,21 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
   const [selectedMarathon, setSelectedMarathon] = useState<MarathonType | any>(
     null
   ); // Track the selected marathon
+  const [numQuestionsPerQuiz, setNumQuestionsPerQuiz] = useState<
+    number | undefined
+  >(undefined);
+  const [numQuizzesPerDay, setNumQuizzesPerDay] = useState<number | undefined>(
+    undefined
+  );
+  const [errorMessage, setErrorMessage] = useState(""); // State to handle error message display
 
   useEffect(() => {
     fetchCategories();
     fetchMarathons();
   }, []);
-
+  const selectedCategoryData = categories.find(
+    (item) => item.category === selectedCategory
+  );
   const fetchMarathons = async () => {
     try {
       const res = await axios.get(`http://localhost:4000/marathon`);
@@ -67,6 +76,8 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
       const currentQuizData = response.data;
       if (currentQuizData && currentQuizData.did_quiz === 0) {
         setSelectedMarathon({ ...marathons[index], currentQuizData }); // Store the selected marathon with its quiz data
+      } else if (currentQuizData.did_quiz === 2) {
+        await fetchMarathons();
       } else {
         const updatedStatus = [...quizDoneStatus];
         updatedStatus[index] = true;
@@ -85,19 +96,33 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
       return;
     }
 
-    try {
-      const response = await axios.post("http://localhost:4000/marathon", {
-        category: selectedCategory,
-        total_days: selectedDays,
-      });
+    // Check if both numQuizzesPerDay and numQuestionsPerQuiz are provided
+    if (numQuizzesPerDay !== undefined && numQuestionsPerQuiz !== undefined) {
+      const totalQuizzes = selectedDays * numQuizzesPerDay;
+      const totalQuestions = totalQuizzes * numQuestionsPerQuiz;
 
-      const marathon_id = response.data;
-      const newMarathon: MarathonType = {
-        marathon_id,
+      if (
+        selectedCategoryData &&
+        totalQuestions < selectedCategoryData.flashcardCount
+      ) {
+        const percentageCovered = Math.floor(
+          (totalQuestions / selectedCategoryData.flashcardCount) * 100
+        );
+        const warningMessage = `You are about to create a marathon that does covers only ${percentageCovered}% of the total flashcards in this category. Do you want to proceed?`;
+        const userConfirmation = window.confirm(warningMessage);
+        if (!userConfirmation) {
+          return;
+        }
+      }
+    }
+
+    try {
+      await axios.post("http://localhost:4000/marathon", {
         category: selectedCategory,
         total_days: selectedDays,
-        current_day: 0,
-      };
+        num_quiz: numQuizzesPerDay,
+        num_questions: numQuestionsPerQuiz,
+      });
 
       // Fetch updated marathons after creating a new one
       await fetchMarathons();
@@ -117,7 +142,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
               align="left"
               sx={{ fontWeight: "lighter", color: "#333" }}
             >
-              Choose a Category and Number of Days to Start a Marathon
+              Choose a Category
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -146,7 +171,53 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
               label="Number of Days"
               variant="outlined"
               value={selectedDays || ""}
-              onChange={(e) => setSelectedDays(parseInt(e.target.value))}
+              onChange={(e) => {
+                const days = parseInt(e.target.value);
+                setSelectedDays(days > 0 || e.target.value === "" ? days : 1);
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Number of Quizzes per Day"
+              variant="outlined"
+              value={numQuizzesPerDay || ""}
+              onChange={(e) => {
+                const days = parseInt(e.target.value);
+                setNumQuizzesPerDay(
+                  days > 0 || e.target.value === "" ? days : 1
+                );
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Number of Questions per Quiz"
+              variant="outlined"
+              value={numQuestionsPerQuiz || ""}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (
+                  selectedCategory &&
+                  selectedCategoryData &&
+                  value > selectedCategoryData.flashcardCount
+                ) {
+                  setErrorMessage(
+                    "Number of questions exceeds available flashcards."
+                  );
+                } else {
+                  setErrorMessage(""); // Clear error message if value is within limits
+                  setNumQuestionsPerQuiz(
+                    value > 0 || e.target.value === "" ? value : 1
+                  );
+                }
+              }}
+              helperText={errorMessage} // Display error message below the input field
+              error={!!errorMessage} // Set error state based on whether an error message is present
             />
           </Grid>
           <Grid item xs={12}>
@@ -184,16 +255,10 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
                     position: "relative",
                   }}
                 >
-                  <h5
-                    style={{
-                      color: "white",
-                      marginBottom: "1.5rem",
-                      fontWeight: 700,
-                      letterSpacing: ".3rem",
-                    }}
-                  >
+                  <Typography sx={{}} variant="h6" gutterBottom>
                     {`${marathon.category} Marathon`}
-                  </h5>
+                  </Typography>
+
                   <p style={{ color: "white" }}>
                     📅{" "}
                     {`Day ${marathon.current_day + 1} out of ${
@@ -236,7 +301,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
       ) : (
         <Quiz
           flashcards={selectedMarathon.currentQuizData.flashcards}
-          title={`Quiz ${selectedMarathon.current_day + 1}`}
+          title={`Day ${selectedMarathon.current_day + 1} of Marathon`}
           id={selectedMarathon.currentQuizData.id}
           start_time={selectedMarathon.currentQuizData.start_time}
           onFinish={() => {
