@@ -13,6 +13,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -46,6 +47,9 @@ const QuizesLayout = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedQuiz, setSelectedQuiz] = useState<number | null>(null);
+  const [selectedNumberOfQuestions, setSelectedNumberOfQuestions] = useState<
+    number | undefined
+  >();
   const [quizzes, setQuizzes] = useState<QuizType[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -101,9 +105,11 @@ const QuizesLayout = () => {
 
       const response = await axios.post("http://localhost:4000/quizzes", {
         categories: categoriesToSend,
+        selectedNumberOfQuestionsPerQuiz: selectedNumberOfQuestions,
       });
 
       const quizzesData = response.data;
+      // AADD A PROMPYT FOR HOW MANY QUIZES
       setQuizzes(quizzesData);
     } catch (error: any) {
       console.error("Error fetching quizzes:", error);
@@ -211,6 +217,18 @@ const QuizesLayout = () => {
               </Grid>
 
               <Grid item xs={12}>
+                <Grid item xs={5} className="mb-4">
+                  <TextField
+                    fullWidth
+                    type="number"
+                    label="Select Number of Flashcards Per Quiz"
+                    variant="outlined"
+                    value={selectedNumberOfQuestions || ""}
+                    onChange={(e) => {
+                      setSelectedNumberOfQuestions(parseInt(e.target.value));
+                    }}
+                  />
+                </Grid>
                 <Button
                   variant="contained"
                   color="primary"
