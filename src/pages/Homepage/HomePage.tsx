@@ -40,14 +40,14 @@ export default function Homepage() {
     answer: string,
     category: string,
     difficulty_level: DifficultyLevelEnum,
-    isAuto: number
+    is_auto: number
   ) => {
     const flashcardData = {
       question: question,
       answer: answer,
       category: category,
       difficulty_level: difficulty_level,
-      isAuto: isAuto,
+      is_auto: is_auto,
     };
     axios
       .post(`http://localhost:4000/flashcards`, flashcardData)

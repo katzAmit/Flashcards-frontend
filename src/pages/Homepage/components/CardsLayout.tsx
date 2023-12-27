@@ -22,7 +22,7 @@ interface CardsLayoutProps {
     answer: string,
     category: string,
     difficulty_level: DifficultyLevelEnum,
-    isAuto: number
+    is_auto: number
   ) => void;
   updateFlashCard: (card: FlashCard) => void;
   filterFlashCards: (criteria: FilterCriteria) => void;
@@ -126,7 +126,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
                       answer={card.answer}
                       difficulty={card.difficulty_level}
                       category={card.category}
-                      isAuto={card.isAuto}
+                      is_auto={card.is_auto}
                       onDelete={() => deleteFlashCard(card.id)}
                       onEdit={() => handleEditClick(card.id)}
                     />

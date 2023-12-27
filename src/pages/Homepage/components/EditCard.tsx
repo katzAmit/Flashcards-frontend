@@ -49,7 +49,7 @@ const EditCard: React.FC<EditCardProps> = ({
       setQuestion(cardData.question);
       setAnswer(cardData.answer);
       setCategory(cardData.category);
-      setAutoPressed(cardData.isAuto);
+      setAutoPressed(cardData.is_auto);
     }
   }, [cardData]);
 
@@ -94,7 +94,7 @@ const EditCard: React.FC<EditCardProps> = ({
       answer,
       category,
       difficulty_level: difficulty ?? DifficultyLevelEnum.Easy,
-      isAuto: autoPressed,
+      is_auto: autoPressed,
     };
 
     try {
