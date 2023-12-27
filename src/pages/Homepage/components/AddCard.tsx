@@ -26,7 +26,7 @@ export default function AddCard(props: any) {
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
   const [errorFields, setErrorFields] = useState<string[]>([]);
-  const [autoPressed, setAutoPressed] = useState(1); // Set to true to have it checked by default
+  const [autoPressed, setAutoPressed] = useState(1);
   const [open, setOpen] = useState(false);
 
   const handleDifficultyChange = (event: SelectChangeEvent<string>) => {
