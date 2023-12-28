@@ -89,18 +89,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
               <TiDocumentAdd className="text-2xl" />
             </button>
             <BasePopup id={id} open={open} anchor={anchor}>
-              <Box
-                sx={{
-                  backgroundColor: "white",
-                  position: "relative",
-                  top: "50%",
-                  left: "-62.25%",
-                  boxShadow: "1px 2px 9px #6352B1",
-                  margin: "4em",
-                  padding: "1em",
-                  borderRadius: "15px",
-                }}
-              >
+              <Box>
                 <AddCard addFlashCard={addFlashCard} setAnchor={setAnchor} />
               </Box>
             </BasePopup>
