@@ -218,16 +218,24 @@ const QuizesLayout = () => {
 
               <Grid item xs={12}>
                 <Grid item xs={5} className="mb-4">
-                  <TextField
-                    fullWidth
-                    type="number"
-                    label="Select Number of Flashcards Per Quiz"
-                    variant="outlined"
-                    value={selectedNumberOfQuestions || ""}
-                    onChange={(e) => {
-                      setSelectedNumberOfQuestions(parseInt(e.target.value));
-                    }}
-                  />
+                  <Tooltip
+                    title="This field is optional. Leaving it unfilled will generate quizzes with 3 flashcards per quiz, the minimum for a category."
+                    arrow
+                  >
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label="Select Number of Flashcards Per Quiz"
+                      variant="outlined"
+                      value={selectedNumberOfQuestions || ""}
+                      onChange={(e) => {
+                        const questions = parseInt(e.target.value);
+                        setSelectedNumberOfQuestions(
+                          questions > 3 || e.target.value === "" ? questions : 3
+                        );
+                      }}
+                    />
+                  </Tooltip>
                 </Grid>
                 <Button
                   variant="contained"
@@ -246,7 +254,7 @@ const QuizesLayout = () => {
                       color: "#FFFFFF",
                     }}
                   >
-                    Generate Tests
+                    Generate Quizzes
                   </Typography>
                 </Button>
               </Grid>

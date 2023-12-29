@@ -132,22 +132,16 @@ function ResponsiveNavBar() {
                   my: 2,
                   color:
                     location.pathname === navto[page]
-                      ? "rgba(255, 255, 255, 0.2)"
-                      : "white",
+                      ? "white"
+                      : "rgba(255, 255, 255, 0.6)",
                   display: "block",
                   fontSize: "1rem",
                   padding: "10px", // Add padding for better visual appearance
                   borderRadius: "8px", // Add rounded corners
-                  backgroundColor:
-                    location.pathname === navto[page]
-                      ? "rgba(255, 255, 255, 0.2)" // Background color for active tab
-                      : "transparent", // Background color for inactive tabs
-                  transition: "background-color 0.3s", // Smooth transition on hover
+                  transition: "background-color 0.3s, color 0.3s", // Smooth transition on hover for color and background
                   "&:hover": {
-                    backgroundColor:
-                      location.pathname === navto[page]
-                        ? "rgba(255, 255, 255, 0.2)" // Hover effect for active tab
-                        : "rgba(255, 255, 255, 0.1)", // Hover effect for inactive tabs
+                    backgroundColor: "rgba(255, 255, 255, 0.2)", // Background color on hover for all tabs
+                    color: "rgba(255, 255, 255, 0.8)", // Change text color on hover for better contrast
                   },
                 }}
               >
@@ -158,16 +152,20 @@ function ResponsiveNavBar() {
 
           <div style={{ position: "absolute", right: 20 }}>
             <Button
+              onClick={() => handleLogout}
               sx={{
                 my: 2,
-                color: "white",
+                color: "rgba(255, 255, 255, 0.6)",
                 display: "block",
                 fontSize: "1rem",
+                padding: "10px", // Add padding for better visual appearance
+                borderRadius: "8px", // Add rounded corners
+                transition: "background-color 0.3s, color 0.3s", // Smooth transition on hover for color and background
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backgroundColor: "rgba(255, 255, 255, 0.2)", // Background color on hover for all tabs
+                  color: "rgba(255, 255, 255, 0.8)", // Change text color on hover for better contrast
                 },
               }}
-              onClick={handleLogout}
             >
               Logout
             </Button>
