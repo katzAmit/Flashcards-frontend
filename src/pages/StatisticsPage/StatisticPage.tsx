@@ -12,18 +12,7 @@ export default function Statistics() {
   const [stat3, setStat3] = useState([]);
   const [stat4, setStat4] = useState([]);
   const [stat5, setStat5] = useState("before");
-  // const stat2 = [
-  //   { x: "amit", y: 2 },
-  //   { x: "ben", y: 3 },
-  //   { x: "gadi", y: 5 },
-  //   { x: "eli", y: 4 },
-  // ];
-
-  // const stat3 = [
-  //   { x: 6, y: 120 },
-  //   { x: 2, y: 150 },
-  //   { x: 3, y: 75 },
-  // ];
+  const [stat6, setStat6] = useState({ easyCategory: "", hardCategory: "" });
 
   const fetchStats = async () => {
     try {
@@ -33,6 +22,7 @@ export default function Statistics() {
       setStat3(res.data[2]);
       setStat4(res.data[3]);
       setStat5(res.data[4]);
+      setStat6(res.data[5]);
     } catch (error) {
       console.error("error fetching data", error);
     }
@@ -52,6 +42,7 @@ export default function Statistics() {
           stat3={stat3}
           stat4={stat4}
           stat5={stat5}
+          stat6={stat6}
         />
       </main>
     </>

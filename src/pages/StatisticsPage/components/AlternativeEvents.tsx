@@ -7,8 +7,27 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
+
+const CustomizedAxisTick = (props: any) => {
+  const { x, y, payload } = props;
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={16}
+        textAnchor="end"
+        fill="#666"
+        transform="rotate(-35)"
+        fontSize={12}
+      >
+        {payload.value}
+      </text>
+    </g>
+  );
+};
 
 export default function AlternativeEvents(props: any) {
   let { data } = props;
@@ -26,23 +45,22 @@ export default function AlternativeEvents(props: any) {
   );
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={500}>
       <BarChart
-        width={500}
-        height={300}
+        width={600}
+        height={400}
         data={data}
         margin={{
           top: 20,
           right: 30,
           left: 20,
-          bottom: 20,
+          bottom: 50, // Adjusted bottom margin for more space
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="category" />
+        <XAxis dataKey="category" tick={<CustomizedAxisTick />} />
         <YAxis />
         <Tooltip />
-        <Legend />
         <Bar dataKey="Questions" fill="#5CB85C" />
         <Bar dataKey="Easy" fill="#5CB85C" />
         <Bar dataKey="Medium" fill="#F7E967" />
@@ -50,14 +68,4 @@ export default function AlternativeEvents(props: any) {
       </BarChart>
     </ResponsiveContainer>
   );
-  function getColorByKey(key: string) {
-    const colorMap: { [key: string]: string } = {
-      Questions: "#5CB85C",
-      Easy: "#5CB85C",
-      Medium: "#FFD700",
-      Hard: "#FF0000",
-      // Add more keys and colors if needed
-    };
-    return colorMap[key];
-  }
 }

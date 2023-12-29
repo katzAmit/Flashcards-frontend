@@ -20,7 +20,7 @@ export default function StatisticLayout(props: any) {
 
   const headerStyle = {
     fontSize: "1.2em", // Adjust the font size as needed
-    borderBottom: "1px solid #000", // Adjust the border thickness and color as needed
+    // borderBottom: "1px solid #000", // Adjust the border thickness and color as needed
     // Adjust the padding as needed
     marginBottom: "1px", // Adjust the margin as needed
   };
@@ -54,7 +54,7 @@ export default function StatisticLayout(props: any) {
             padding: 2,
           }}
         >
-          <h2 style={headerStyle}>Flashcards Distribution per Category</h2>
+          <h2 style={headerStyle}>Flashcards Distribution</h2>
           <PieChart data={props.stat3} />
         </Grid>
 
@@ -63,22 +63,24 @@ export default function StatisticLayout(props: any) {
           container
           item
           xs={12}
-          sm={9}
-          md={7}
+          sm={16}
+          md={12}
           sx={{
             border: "1px solid #ccc",
             padding: 2,
           }}
         >
-          <h2 style={headerStyle}>Distribution of Difficulty Level</h2>
+          <h2 style={headerStyle}>
+            Distribution of Difficulty Level Per Category
+          </h2>
           <AlternativeEvents data={props.stat4} />
         </Grid>
         <Grid
           container
           item
-          xs={12}
-          sm={7}
-          md={5}
+          xs={3}
+          sm={3}
+          md={6}
           sx={{
             border: "1px solid #ccc",
             padding: 2,
@@ -102,6 +104,38 @@ export default function StatisticLayout(props: any) {
           <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
             <div className="costume-font" style={{ marginBottom: "0.5em" }}>
               {props.stat5}
+            </div>
+          </div>
+        </Grid>
+        <Grid
+          container
+          item
+          xs={3}
+          sm={3}
+          md={6}
+          sx={{
+            border: "1px solid #ccc",
+            padding: 2,
+          }}
+        >
+          <h2 style={{ ...headerStyle, marginBottom: "0.5em" }}>
+            The category you know best is
+          </h2>
+          <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+            {props.stat6.easyCategory}
+          </div>
+          <h2
+            style={{
+              ...headerStyle,
+              marginTop: "0.5em",
+              marginBottom: "0.5em",
+            }}
+          >
+            And the category you know least is
+          </h2>
+          <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
+            <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+              {props.stat6.hardCategory}
             </div>
           </div>
         </Grid>
