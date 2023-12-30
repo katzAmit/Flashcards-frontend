@@ -17,17 +17,15 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
+          <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
+
           <Route element={<ProtectedRoutes />}>
             <Route path={RoutesEnum.HOME} element={<Homepage />} />
-            {/* <Route path={RoutesEnum.HOME} element={<Statistics />} /> */}
             <Route path={RoutesEnum.PRACTICE} element={<QuizesLayout />} />
+            <Route path={RoutesEnum.STATS} element={<Statistics />} />
+            <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
           </Route>
-          <Route path={RoutesEnum.REGISTER} element={<SignUp />} />
-          <Route path={RoutesEnum.HOME} element={<Homepage />} />
-          <Route path={RoutesEnum.LOGIN} element={<SignIn />} />
-          <Route path={RoutesEnum.MARATHON} element={<MarathonPage />} />
-          <Route path={RoutesEnum.STATS} element={<Statistics />} />
-          <Route path={RoutesEnum.HOME} element={<Homepage />} />
         </Routes>
       </Router>
     </AuthProvider>

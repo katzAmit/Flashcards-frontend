@@ -4,7 +4,7 @@ export enum RoutesEnum {
     REGISTER = '/register',
     PROFILE = '/profile',
     QUESTION = '/question',
-    PRACTICE = "/quiz",
+    PRACTICE = "/practice",
     STATS = "/stats",
     MARATHON = "/marathon"
 }
