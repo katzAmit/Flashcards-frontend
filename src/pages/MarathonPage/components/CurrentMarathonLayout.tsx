@@ -146,7 +146,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
               align="left"
               sx={{ fontWeight: "lighter", color: "#333" }}
             >
-              Choose a Category
+              Craft Your personalized Marathon!
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -158,7 +158,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
                 inputProps={{ "aria-label": "Select category" }}
               >
                 <MenuItem value="" disabled>
-                  Select a category
+                  Select a category *
                 </MenuItem>
                 {categories.map((category) => (
                   <MenuItem key={category.category} value={category.category}>
@@ -172,7 +172,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
             <TextField
               fullWidth
               type="number"
-              label="Number of Days"
+              label="Number of Days *"
               variant="outlined"
               value={selectedDays || ""}
               onChange={(e) => {

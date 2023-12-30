@@ -152,7 +152,7 @@ function ResponsiveNavBar() {
 
           <div style={{ position: "absolute", right: 20 }}>
             <Button
-              onClick={() => handleLogout}
+              onClick={handleLogout}
               sx={{
                 my: 2,
                 color: "rgba(255, 255, 255, 0.6)",

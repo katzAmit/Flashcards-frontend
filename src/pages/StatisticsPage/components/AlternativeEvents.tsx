@@ -45,7 +45,7 @@ export default function AlternativeEvents(props: any) {
   );
 
   return (
-    <ResponsiveContainer width="100%" height={500}>
+    <ResponsiveContainer width="100%" height={400}>
       <BarChart
         width={600}
         height={400}
@@ -53,18 +53,36 @@ export default function AlternativeEvents(props: any) {
         margin={{
           top: 20,
           right: 30,
-          left: 20,
+          left: 0,
           bottom: 50, // Adjusted bottom margin for more space
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="category" tick={<CustomizedAxisTick />} />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="Questions" fill="#5CB85C" />
+        <XAxis
+          dataKey="category"
+          angle={-45}
+          textAnchor="end"
+          interval={0}
+          tick={{ fontSize: 9 }}
+        />
+        <YAxis
+          domain={[0, "dataMax"]} // Use the calculated max value for the domain
+          allowDataOverflow
+          allowDecimals={false}
+        />
+        <Tooltip cursor={{ fill: "transparent" }} />
+        <Bar
+          dataKey="Questions"
+          fill="#5CB85C"
+          barSize={
+            data.some((entry: any) => entry.Questions !== undefined)
+              ? 16
+              : undefined
+          }
+        />
         <Bar dataKey="Easy" fill="#5CB85C" />
-        <Bar dataKey="Medium" fill="#F7E967" />
-        <Bar dataKey="Hard" fill="#F1433F" />
+        <Bar dataKey="Medium" fill="#F7E967" animationDuration={3000} />
+        <Bar dataKey="Hard" fill="#F1433F" animationDuration={3000} />
       </BarChart>
     </ResponsiveContainer>
   );

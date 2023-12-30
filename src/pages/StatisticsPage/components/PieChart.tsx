@@ -12,7 +12,7 @@ export default function PieChart(props: any) {
         width={400}
         height={400}
         data={props.data}
-        innerRadius={50}
+        innerRadius={0}
         labelRadius={100}
         colorScale={colorScale}
         style={{ labels: { fontSize: 20, fill: "white" } }}

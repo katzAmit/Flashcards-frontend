@@ -12,22 +12,6 @@ import Quiz from "./pages/PracticePage/Quiz";
 import Statistics from "./pages/StatisticsPage/StatisticPage";
 import StatisticLayout from "./pages/StatisticsPage/components/StatisticLayout";
 
-const quizData = [
-  {
-    title: "Recommended Quiz 1 - Biology - 10 Questions - Hard",
-    id: "12345-quiz",
-    flashcards: [
-      { question: "What is the capital of France?", answer: "Paris", id: "1" },
-      {
-        question: "Who painted the Mona Lisa?",
-        answer: "Leonardo da Vinci",
-        id: "2",
-      },
-      // Add more flashcards as needed
-    ],
-  },
-];
-
 export default function App() {
   return (
     <AuthProvider>
