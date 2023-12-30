@@ -20,8 +20,8 @@ export default function StatisticLayout(props: any) {
 
   const headerStyle = {
     fontSize: "1.2em", // Adjust the font size as needed
-    borderBottom: "1px solid #000", // Adjust the border thickness and color as needed
-    padding: "8px", // Adjust the padding as needed
+    // borderBottom: "1px solid #000", // Adjust the border thickness and color as needed
+    // Adjust the padding as needed
     marginBottom: "1px", // Adjust the margin as needed
   };
 
@@ -33,22 +33,8 @@ export default function StatisticLayout(props: any) {
           container
           item
           xs={12}
-          sm={10}
-          md={8}
-          sx={{
-            border: "1px solid #ccc",
-            padding: 2,
-          }}
-        >
-          <h2 style={headerStyle}>The Best Hours You Perform Are</h2>
-          <div className="costume-font">{props.stat1}</div>
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          sm={8}
-          md={4}
+          sm={9}
+          md={7}
           sx={{
             border: "1px solid #ccc",
             padding: 2,
@@ -61,8 +47,8 @@ export default function StatisticLayout(props: any) {
           container
           item
           xs={12}
-          sm={6}
-          md={4}
+          sm={7}
+          md={5}
           sx={{
             border: "1px solid #ccc",
             padding: 2,
@@ -77,31 +63,81 @@ export default function StatisticLayout(props: any) {
           container
           item
           xs={12}
-          sm={6}
-          md={4}
-          sx={{
-            border: "1px solid #ccc",
-            padding: 2,
-          }}
-        >
-          <h2 style={headerStyle}>Distribution of Difficulty Level</h2>
-          <AlternativeEvents data={props.stat4} />
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          sm={6}
-          md={4}
+          sm={16}
+          md={12}
           sx={{
             border: "1px solid #ccc",
             padding: 2,
           }}
         >
           <h2 style={headerStyle}>
+            Distribution of Difficulty Level Per Category
+          </h2>
+          <AlternativeEvents data={props.stat4} />
+        </Grid>
+        <Grid
+          container
+          item
+          xs={3}
+          sm={3}
+          md={6}
+          sx={{
+            border: "1px solid #ccc",
+            padding: 2,
+          }}
+        >
+          <h2 style={{ ...headerStyle, marginBottom: "0.5em" }}>
+            The Best Hours You Perform Are
+          </h2>
+          <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+            {props.stat1}
+          </div>
+          <h2
+            style={{
+              ...headerStyle,
+              marginTop: "0.5em",
+              marginBottom: "0.5em",
+            }}
+          >
             The Average Time It Takes You to Finish a Quiz
           </h2>
-          <div className="costume-font">{props.stat5}</div>
+          <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
+            <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+              {props.stat5}
+            </div>
+          </div>
+        </Grid>
+        <Grid
+          container
+          item
+          xs={3}
+          sm={3}
+          md={6}
+          sx={{
+            border: "1px solid #ccc",
+            padding: 2,
+          }}
+        >
+          <h2 style={{ ...headerStyle, marginBottom: "0.5em" }}>
+            The category you know best is
+          </h2>
+          <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+            {props.stat6.easyCategory}
+          </div>
+          <h2
+            style={{
+              ...headerStyle,
+              marginTop: "0.5em",
+              marginBottom: "0.5em",
+            }}
+          >
+            And the category you know least is
+          </h2>
+          <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
+            <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+              {props.stat6.hardCategory}
+            </div>
+          </div>
         </Grid>
       </Grid>
     </Container>

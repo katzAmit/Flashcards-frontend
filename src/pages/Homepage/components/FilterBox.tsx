@@ -142,27 +142,35 @@ const FilterBox: React.FC<FilterBoxProps> = ({ filterFlashCards }) => {
               </h3>
               <Disclosure.Panel className="pt-6">
                 <div className="space-y-6">
-                  {section.options.map((option, optionIdx) => (
-                    <div key={option.value} className="flex items-center">
-                      <input
-                        id={`filter-mobile-${section.id}-${optionIdx}`}
-                        name={`${section.id}[]`}
-                        defaultValue={option.value}
-                        type="checkbox"
-                        defaultChecked={option.checked}
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        onChange={() =>
-                          handleCheckboxChange(section.id, optionIdx)
-                        }
-                      />
-                      <label
-                        htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                        className="ml-3 min-w-0 flex-1 text-gray-500"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
+                  <div className="grid grid-cols-3 gap-4">
+                    {section.options.map((option, optionIdx) => (
+                      <div key={option.value} className="col-span-1">
+                        <input
+                          id={`filter-mobile-${section.id}-${optionIdx}`}
+                          name={`${section.id}[]`}
+                          defaultValue={option.value}
+                          type="checkbox"
+                          defaultChecked={option.checked}
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          onChange={() =>
+                            handleCheckboxChange(section.id, optionIdx)
+                          }
+                        />
+                        <label
+                          htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                          className="ml-3 min-w-0 flex-1 text-gray-500"
+                        >
+                          {option.label}
+                        </label>
+                      </div>
+                    ))}
+                    {/* Empty divs to maintain a grid layout with three columns */}
+                    {Array(3 - (section.options.length % 3))
+                      .fill(null)
+                      .map((_, index) => (
+                        <div key={`empty-${index}`} className="col-span-1" />
+                      ))}
+                  </div>
                 </div>
               </Disclosure.Panel>
             </>

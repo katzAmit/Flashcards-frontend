@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import { VictoryLabel, VictoryPie } from "victory";
 
 export default function PieChart(props: any) {
-  const colorScale = ["#83f28f", "#F7E967", "#F1433F"];
+  const colorScale = ["#5CB85C", "#F7E967", "#F1433F"];
 
   return (
     <svg viewBox="0 0 400 400">

@@ -150,7 +150,6 @@ export default function Homepage() {
           filterFlashCards={onFilterChanged}
         />
       </main>
-      <Footer />
     </>
   );
 }

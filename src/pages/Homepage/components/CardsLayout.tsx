@@ -73,9 +73,9 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
       <Grid container spacing={2}>
         {/* Row 1: Action buttons */}
         <Grid item xs={12}>
-          <div className="flex items-center mb-8 justify-between">
+          <div className="flex items-center justify-between">
             <button
-              className="rounded-full p-2 bg-gray-300 flex items-center justify-center"
+              className="rounded-full p-2 bg-gray-300 flex items-center justify-center transition-colors duration-300 hover:bg-gray-400"
               onClick={handleFilterClick}
             >
               <BiFilterAlt className="text-2xl" />
@@ -84,7 +84,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
               aria-describedby={id}
               type="button"
               onClick={handleAdd}
-              className="rounded-full p-2 bg-gray-300 flex items-center justify-center"
+              className="rounded-full p-2 bg-gray-300 flex items-center justify-center transition-colors duration-300 hover:bg-gray-400"
             >
               <TiDocumentAdd className="text-2xl" />
             </button>

@@ -6,15 +6,19 @@ import {
   Container,
   FormControl,
   Grid,
+  IconButton,
   MenuItem,
   Select,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Quiz from "../../PracticePage/Quiz";
 import { RoutesEnum } from "../../../types/routes.enum";
-
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 type CurrentMarathonsLayoutProps = {};
 
 const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
@@ -177,48 +181,59 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
               }}
             />
           </Grid>
+
           <Grid item xs={6}>
-            <TextField
-              fullWidth
-              type="number"
-              label="Number of Quizzes per Day"
-              variant="outlined"
-              value={numQuizzesPerDay || ""}
-              onChange={(e) => {
-                const days = parseInt(e.target.value);
-                setNumQuizzesPerDay(
-                  days > 0 || e.target.value === "" ? days : 1
-                );
-              }}
-            />
+            <Tooltip
+              title="This field is optional. Leaving it unfilled will generate a marathon with 1 quiz per day."
+              arrow
+            >
+              <TextField
+                fullWidth
+                type="number"
+                label="Number of Quizzes per Day"
+                variant="outlined"
+                value={numQuizzesPerDay || ""}
+                onChange={(e) => {
+                  const days = parseInt(e.target.value);
+                  setNumQuizzesPerDay(
+                    days > 0 || e.target.value === "" ? days : 1
+                  );
+                }}
+              />
+            </Tooltip>
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              fullWidth
-              type="number"
-              label="Number of Questions per Quiz"
-              variant="outlined"
-              value={numQuestionsPerQuiz || ""}
-              onChange={(e) => {
-                const value = parseInt(e.target.value);
-                if (
-                  selectedCategory &&
-                  selectedCategoryData &&
-                  value > selectedCategoryData.flashcardCount
-                ) {
-                  setErrorMessage(
-                    "Number of questions exceeds available flashcards."
-                  );
-                } else {
-                  setErrorMessage(""); // Clear error message if value is within limits
-                  setNumQuestionsPerQuiz(
-                    value > 0 || e.target.value === "" ? value : 1
-                  );
-                }
-              }}
-              helperText={errorMessage} // Display error message below the input field
-              error={!!errorMessage} // Set error state based on whether an error message is present
-            />
+            <Tooltip
+              title="This field is optional. Leaving it unfilled will generate a marathon with enough questions per quiz to cover the entire category."
+              arrow
+            >
+              <TextField
+                fullWidth
+                type="number"
+                label="Number of Questions per Quiz"
+                variant="outlined"
+                value={numQuestionsPerQuiz || ""}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (
+                    selectedCategory &&
+                    selectedCategoryData &&
+                    value > selectedCategoryData.flashcardCount
+                  ) {
+                    setErrorMessage(
+                      "Number of questions exceeds available flashcards."
+                    );
+                  } else {
+                    setErrorMessage(""); // Clear error message if value is within limits
+                    setNumQuestionsPerQuiz(
+                      value > 0 || e.target.value === "" ? value : 1
+                    );
+                  }
+                }}
+                helperText={errorMessage} // Display error message below the input field
+                error={!!errorMessage} // Set error state based on whether an error message is present
+              />
+            </Tooltip>
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -270,26 +285,25 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
                       All done for today, come back tomorrow
                     </div>
                   ) : (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() =>
-                        handleContinueMarathon(marathon.marathon_id, index)
-                      }
-                      sx={{
-                        position: "absolute",
-                        bottom: "8px",
-                        right: "8px",
-                        fontWeight: "bold",
-                        backgroundColor: "#2E3B55",
-                        color: "#FFFFFF",
-                        "&:hover": {
-                          backgroundColor: "#1c2733",
-                        },
-                      }}
-                    >
-                      Continue Marathon
-                    </Button>
+                    <Tooltip title="Continue Marathon" arrow>
+                      <IconButton
+                        onClick={() =>
+                          handleContinueMarathon(marathon.marathon_id, index)
+                        }
+                        sx={{
+                          position: "absolute",
+                          bottom: "8px",
+                          right: "8px",
+                          backgroundColor: "#2E3B55",
+                          color: "#FFFFFF",
+                          "&:hover": {
+                            backgroundColor: "#1c2733",
+                          },
+                        }}
+                      >
+                        <ArrowForwardIcon />
+                      </IconButton>
+                    </Tooltip>
                   )}
                 </div>
               ))
