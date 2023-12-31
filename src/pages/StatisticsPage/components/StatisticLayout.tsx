@@ -54,7 +54,7 @@ export default function StatisticLayout(props: any) {
             padding: 2,
           }}
         >
-          <h2 style={headerStyle}>Flashcards Distribution</h2>
+          <h2 style={headerStyle}>Flashcards Difficulty Distribution</h2>
           <PieChart data={props.stat3} />
         </Grid>
 
@@ -119,7 +119,7 @@ export default function StatisticLayout(props: any) {
           }}
         >
           <h2 style={{ ...headerStyle, marginBottom: "0.5em" }}>
-            The category you know best is
+          The category with the highest success rate is
           </h2>
           <div className="costume-font" style={{ marginBottom: "0.5em" }}>
             {props.stat6.easyCategory}
@@ -131,7 +131,7 @@ export default function StatisticLayout(props: any) {
               marginBottom: "0.5em",
             }}
           >
-            And the category you know least is
+            The category with the lowest success rate is
           </h2>
           <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
             <div className="costume-font" style={{ marginBottom: "0.5em" }}>
