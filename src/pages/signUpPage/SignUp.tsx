@@ -17,11 +17,12 @@ import axios from "axios";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import UpperBar from "../LoginPage/components/LoginBar";
 import { RoutesEnum } from "../../types/routes.enum";
+import { useState } from "react";
 
 const defaultTheme = createTheme();
 
 let incorrectMail = false;
-let weakPassword = false;
+
 let usedMail = false;
 let errorMessage = "";
 
@@ -31,15 +32,33 @@ function MailIncorrectness(email: any) {
 }
 
 function PasswordIncorrectness(password: any) {
-  return false;
+  // Password must be at least 8 characters long
+  const minLength = 8;
+
+  // Regular expressions to check for different character types
+  const uppercaseRegex = /[A-Z]/;
+  const lowercaseRegex = /[a-z]/;
+  const numberRegex = /[0-9]/;
+  const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+  // Check if the password meets all criteria
+  const isStrongPassword =
+    password.length >= minLength &&
+    uppercaseRegex.test(password) &&
+    lowercaseRegex.test(password) &&
+    numberRegex.test(password) &&
+    specialCharRegex.test(password);
+
+  return !isStrongPassword;
 }
 
 export default function SignUp() {
+  const [weakPassword, setWeakPassword] = useState(false); // State for weakPassword
   function CheckValidation(userData: any) {
     MailIncorrectness(userData["username"])
       ? (incorrectMail = true)
       : PasswordIncorrectness(userData["password"])
-      ? (weakPassword = true)
+      ? setWeakPassword(true)
       : axios
           .post("http://localhost:4000/register", userData)
           .then((response) => {
@@ -57,7 +76,7 @@ export default function SignUp() {
   };
   const handleSubmit = (event: any) => {
     incorrectMail = false;
-    weakPassword = false;
+    setWeakPassword(false);
     usedMail = false;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -157,18 +176,26 @@ export default function SignUp() {
                     borderRadius: "10px",
                     marginTop: "20px",
                     width: "fullWidth",
-                    height: "50px",
                     padding: "10px",
                     color: "red",
                     display: "flex",
                     justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
                   }}
                 >
                   <ErrorOutlineIcon />{" "}
                   {incorrectMail ? (
-                    <p>invalid email address</p>
+                    <p>Invalid email address</p>
                   ) : weakPassword ? (
-                    <p>your password is too weak</p>
+                    <p>
+                      Weak password!
+                      <br />
+                      Ensure it's at least 8 characters long with a mix of
+                      uppercase, lowercase letters, digits, and special
+                      characters.
+                    </p>
                   ) : (
                     <p>{errorMessage}</p>
                   )}
