@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Quiz from "../../PracticePage/Quiz";
+import Quiz from "../../PracticePage/components/Quiz";
 import { RoutesEnum } from "../../../types/routes.enum";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";

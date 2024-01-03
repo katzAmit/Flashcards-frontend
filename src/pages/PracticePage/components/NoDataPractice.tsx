@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from "../../../types/routes.enum";
 
 
-const NoDataMarathon: React.FC = () => {
+const NoDataPractice: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGetStartedClick = () => {
@@ -12,16 +12,14 @@ const NoDataMarathon: React.FC = () => {
 
 
 
-
   return (
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
         <div className="text-center">
           <h1 className="text-4xl font-sans font-bold tracking-tight text-gray-900 sm:text-6xl">
-          Insufficient Data for a Marathon Experience
+          Insufficient Data for Practice
           </h1>
           <p className="mt-6 font-sans text-lg leading-8 text-gray-600">
-            You need to create some flashcards in order for us to generate marathons for you. Take the first step now!
-          </p>
+          You should create some flashcards to begin your practice. Take the first step now!          </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <button
               onClick={handleGetStartedClick}
@@ -35,4 +33,4 @@ const NoDataMarathon: React.FC = () => {
   );
 }
 
-export default NoDataMarathon;
+export default NoDataPractice;

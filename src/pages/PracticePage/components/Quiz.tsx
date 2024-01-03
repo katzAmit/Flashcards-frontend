@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Question from "./Question";
-import { RoutesEnum } from "../../types/routes.enum";
+import { RoutesEnum } from "../../../types/routes.enum";
 import axios from "axios";
 
 interface Flashcard {

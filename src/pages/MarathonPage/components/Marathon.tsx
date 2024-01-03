@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RoutesEnum } from "../../../types/routes.enum";
-import Quiz from "../../PracticePage/Quiz";
+import Quiz from "../../PracticePage/components/Quiz";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@mui/material";

@@ -19,10 +19,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Quiz from "./Quiz";
-import ResponsiveNavBar from "../../components/Navbar";
+import ResponsiveNavBar from "../../../components/Navbar";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { RoutesEnum } from "../../types/routes.enum";
+import { RoutesEnum } from "../../../types/routes.enum";
 import { useNavigate } from "react-router-dom";
 
 type Category = {
