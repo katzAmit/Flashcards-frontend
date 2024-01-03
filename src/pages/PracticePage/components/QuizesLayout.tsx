@@ -129,7 +129,6 @@ const QuizesLayout = () => {
 
   return (
     <>
-      <ResponsiveNavBar />
       <Container maxWidth="md" style={{ paddingTop: "2rem", height: "100vh" }}>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           {selectedQuiz === null ? (
