@@ -122,7 +122,7 @@ export default function StatisticLayout(props: any) {
           The category with the highest success rate is
           </h2>
           <div className="costume-font" style={{ marginBottom: "0.5em" }}>
-            {props.stat6.easyCategory}
+            {props.stat6?.easyCategory}
           </div>
           <h2
             style={{
@@ -135,7 +135,7 @@ export default function StatisticLayout(props: any) {
           </h2>
           <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
             <div className="costume-font" style={{ marginBottom: "0.5em" }}>
-              {props.stat6.hardCategory}
+              {props.stat6?.hardCategory}
             </div>
           </div>
         </Grid>
