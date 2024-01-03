@@ -13,6 +13,7 @@ export default function Statistics() {
   const [stat4, setStat4] = useState([]);
   const [stat5, setStat5] = useState("before");
   const [stat6, setStat6] = useState({ easyCategory: "", hardCategory: "" });
+  const [stat7, setStat7] = useState(false);
 
   const fetchStats = async () => {
     try {
@@ -23,6 +24,7 @@ export default function Statistics() {
       setStat4(res.data[3]);
       setStat5(res.data[4]);
       setStat6(res.data[5]);
+      setStat7(res.data[6]);
     } catch (error) {
       console.error("error fetching data", error);
     }
@@ -36,14 +38,18 @@ export default function Statistics() {
     <>
       <NavBar />
       <main>
-        <StatisticLayout
-          stat1={stat1}
-          stat2={stat2}
-          stat3={stat3}
-          stat4={stat4}
-          stat5={stat5}
-          stat6={stat6}
-        />
+      {stat7 ? (
+    <StatisticLayout
+      stat1={stat1}
+      stat2={stat2}
+      stat3={stat3}
+      stat4={stat4}
+      stat5={stat5}
+      stat6={stat6}
+    />
+  ) : (
+    <h2>No quizzes were submitted yet</h2>
+  )}
       </main>
     </>
   );
