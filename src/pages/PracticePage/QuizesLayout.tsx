@@ -172,6 +172,7 @@ const QuizesLayout = () => {
                         sm={3}
                         md={3}
                         lg={3}
+                        style={{ width: "300px" }} 
                       >
                         <FormControlLabel
                           control={
