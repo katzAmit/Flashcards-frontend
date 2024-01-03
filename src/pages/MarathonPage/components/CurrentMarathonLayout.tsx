@@ -132,7 +132,9 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
       await fetchMarathons();
       setShowSuccessMessage(true);
     } catch (error) {
-      console.error("Error adding marathon", error);
+      alert(
+        "The selected category doesn't have enough flashcards for a marathon"
+      );
     }
   };
 
