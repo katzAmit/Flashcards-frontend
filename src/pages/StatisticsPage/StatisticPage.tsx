@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import NoDataHero from "./components/NoDataHero";
 import { Link, useNavigate } from 'react-router-dom';
 
-// Import statements...
 
 export default function Statistics() {
   const [stat1, setStat1] = useState("before");

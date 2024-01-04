@@ -92,9 +92,8 @@ export default function Homepage() {
         )
       );
 
-      // Handle success, you might want to show a message or perform other actions
     } catch (error) {
-      // Handle errors, e.g., display an error message to the user
+      
       console.error("Error updating flashcard:", error);
     }
   };

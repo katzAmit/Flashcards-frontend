@@ -138,7 +138,6 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
               updateFlashCard={updateFlashCard}
               onEditComplete={(updatedData: FlashCard) => {
                 updateFlashCard(updatedData);
-                // Perform any other actions you need after the edit is complete
               }}
             />
           )}

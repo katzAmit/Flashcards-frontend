@@ -60,8 +60,8 @@ const QuizesLayout = () => {
   const handleFinishQuiz = () => {
     if (selectedQuiz !== null) {
       const updatedQuizzes = [...quizzes];
-      updatedQuizzes.splice(selectedQuiz, 1); // Remove the submitted quiz from the list
-      setQuizzes(updatedQuizzes); // Update the quizzes state without the submitted quiz
+      updatedQuizzes.splice(selectedQuiz, 1); 
+      setQuizzes(updatedQuizzes); 
       setSelectedQuiz(null);
       navigate(RoutesEnum.PRACTICE);
     }
@@ -109,7 +109,7 @@ const QuizesLayout = () => {
       });
 
       const quizzesData = response.data;
-      // AADD A PROMPYT FOR HOW MANY QUIZES
+      
       setQuizzes(quizzesData);
     } catch (error: any) {
       console.error("Error fetching quizzes:", error);
