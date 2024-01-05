@@ -171,7 +171,7 @@ const QuizesLayout = () => {
                         sm={3}
                         md={3}
                         lg={3}
-                        style={{ width: "300px" }} 
+                        style={{ width: "300px" }}
                       >
                         <FormControlLabel
                           control={
@@ -230,9 +230,7 @@ const QuizesLayout = () => {
                       value={selectedNumberOfQuestions || ""}
                       onChange={(e) => {
                         const questions = parseInt(e.target.value);
-                        setSelectedNumberOfQuestions(
-                          questions > 3 || e.target.value === "" ? questions : 3
-                        );
+                        setSelectedNumberOfQuestions(questions);
                       }}
                     />
                   </Tooltip>

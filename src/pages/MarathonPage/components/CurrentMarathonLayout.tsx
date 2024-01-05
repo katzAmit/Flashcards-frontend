@@ -319,7 +319,7 @@ const CurrentMarathonsLayout: React.FC<CurrentMarathonsLayoutProps> = ({}) => {
           flashcards={selectedMarathon.currentQuizData.flashcards}
           title={`Day ${selectedMarathon.current_day + 1} of Marathon`}
           id={selectedMarathon.currentQuizData.id}
-          start_time={selectedMarathon.currentQuizData.start_time}
+          start_time={new Date()}
           onFinish={() => {
             navigate(RoutesEnum.MARATHON);
             setSelectedMarathon([]);
