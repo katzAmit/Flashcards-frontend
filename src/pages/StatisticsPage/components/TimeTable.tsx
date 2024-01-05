@@ -10,10 +10,7 @@ export default function TimeTable(props: any) {
         <VictoryChart height={300} width={300} domainPadding={{ x: 50, y: [0, 20]}}>
   <VictoryGroup offset={10}>
     <VictoryBar
-    //   labels={["apples", "bananas", "cherries"]}
-    //   style={{
-    //     labels: { fontSize: 20, fill: "tomato" }
-    //   }}
+   
       labelComponent={<VictoryPortal><VictoryLabel/></VictoryPortal>}
       data={[{x: "amit", y: 1}, {x: "itay", y: 2}, {x: "yuval", y: 5}]}
       style={{ data: { fill: colorScale[0] } }}

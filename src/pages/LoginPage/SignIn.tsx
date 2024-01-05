@@ -10,16 +10,13 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import UpperBar from "../../components/Navbar";
 import UpperBar from "./components/LoginBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { RoutesEnum } from "../../types/routes.enum";
 import { useAuth } from "../../auth/AuthProvider";
-//import express from express;
 
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 let wrongPassword = false;
@@ -53,7 +50,6 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  //adds /signup to route
   const handleSignupClick = () => {
     wrongPassword = false;
     navigate(RoutesEnum.REGISTER);
@@ -141,10 +137,7 @@ export default function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
+           
               <Button
                 type="submit"
                 fullWidth

@@ -5,7 +5,7 @@ import { ContentCopy, Delete, Edit } from "@mui/icons-material";
 
 function ButtonsGroup() {
   const iconButtonStyle = {
-    fontSize: "10px", // Adjust the size as needed
+    fontSize: "10px", 
   };
 
   return (

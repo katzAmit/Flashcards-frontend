@@ -182,7 +182,7 @@ export default function AddCard(props: any) {
                                 backgroundColor: "#fff",
                                 border: "1px solid #000",
                                 boxSizing: "border-box",
-                                position: "relative", // Add this line
+                                position: "relative", 
                               }}
                             />
                           }
@@ -196,7 +196,7 @@ export default function AddCard(props: any) {
                                 border: "1px solid #000",
                                 boxShadow: "inset 0 0 0 2px #fff",
                                 boxSizing: "border-box",
-                                position: "relative", // Add this line
+                                position: "relative", 
                               }}
                             />
                           }

@@ -42,11 +42,9 @@ export const Marathon: React.FC<MarathonProps> = ({
   };
 
   useEffect(() => {
-    // You can reset the state when the component mounts or when the current_day changes
     setIsQuizDone(false);
   }, [current_day]);
 
-  // If currentQuiz data is available, render the Quiz component
   if (currentQuiz) {
     return (
       <Quiz

@@ -19,10 +19,8 @@ export default function StatisticLayout(props: any) {
   };
 
   const headerStyle = {
-    fontSize: "1.2em", // Adjust the font size as needed
-    // borderBottom: "1px solid #000", // Adjust the border thickness and color as needed
-    // Adjust the padding as needed
-    marginBottom: "1px", // Adjust the margin as needed
+    fontSize: "1.2em", 
+    marginBottom: "1px", 
   };
 
   return (
