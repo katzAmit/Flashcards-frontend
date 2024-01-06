@@ -19,8 +19,8 @@ export default function StatisticLayout(props: any) {
   };
 
   const headerStyle = {
-    fontSize: "1.2em", 
-    marginBottom: "1px", 
+    fontSize: "1.2em",
+    marginBottom: "1px",
   };
 
   return (
@@ -117,9 +117,9 @@ export default function StatisticLayout(props: any) {
           }}
         >
           <h2 style={{ ...headerStyle, marginBottom: "0.5em" }}>
-          The category with the highest success rate is
+            The category with the highest success rate is
           </h2>
-          <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+          <div className="costume-font mr-8" style={{ marginBottom: "0.5em" }}>
             {props.stat6?.easyCategory}
           </div>
           <h2
@@ -132,7 +132,10 @@ export default function StatisticLayout(props: any) {
             The category with the lowest success rate is
           </h2>
           <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
-            <div className="costume-font" style={{ marginBottom: "0.5em" }}>
+            <div
+              className="costume-font mr-8"
+              style={{ marginBottom: "0.5em" }}
+            >
               {props.stat6?.hardCategory}
             </div>
           </div>
