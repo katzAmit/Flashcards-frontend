@@ -1,4 +1,4 @@
-Flashcards frontend code.
+This is the Flashcards frontend code.
 
 Use 'npm start' for activation. 
 
